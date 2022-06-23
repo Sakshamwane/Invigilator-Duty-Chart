@@ -28,8 +28,6 @@ public class Reader {
 	}
 	
 	void test() {
-		System.out.println(sheet1.getPhysicalNumberOfRows());
-		System.out.println(sheet2.getPhysicalNumberOfRows());
 		
 		Validate obj = new Validate(sheet1, sheet2);
 		
