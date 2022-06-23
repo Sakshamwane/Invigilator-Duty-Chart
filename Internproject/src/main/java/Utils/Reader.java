@@ -1,8 +1,5 @@
 package Utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -15,34 +12,33 @@ public class Reader {
 
 	
 	//Parameterized constructor
-	Reader(String file_path1, String sheet_name1, String file_path2, String sheet_name2) {
-		
+	public Reader(String FilePath1, String SheetName1, String FilePath2, String SheetName2) {
 		try {
 			
-			workBook1 = new XSSFWorkbook(file_path1);
-			sheet1 = workBook1.getSheet(sheet_name1);
+			workBook1 = new XSSFWorkbook(FilePath1);
 			
-			workBook2 = new XSSFWorkbook(file_path2);
-			sheet2 = workBook2.getSheet(sheet_name2);
+			sheet1 = workBook1.getSheet(SheetName1);
 			
+			workBook2 = new XSSFWorkbook(FilePath2);
 			
-		} catch(IOException e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getCause());
+			sheet2 = workBook2.getSheet(SheetName2);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());		
 		}
-		
 	}
 	
-	
-
-	
-	
-	//Function to read excel file
-	ArrayList Read_xlsx(String Path) {
-		//This method reads the excel files
-		//satyam
-		return null;
+	void test() {
+//		System.out.println(sheet1.getPhysicalNumberOfRows());
+//		System.out.println(sheet2.getPhysicalNumberOfRows());
 		
+		Validate obj = new Validate(sheet1, sheet2);
+		
+		if(obj.isNamePresent()) {
+			System.out.println("Name is present");
+		} else {
+			System.out.println("Name is not present, give valid files");
+		}
 	}
+	
 
 }
