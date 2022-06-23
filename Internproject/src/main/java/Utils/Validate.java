@@ -4,27 +4,27 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 public class Validate {
-	
-	public XSSFSheet arr[];
-	
+
+	public XSSFSheet[] arr;
+
 	public Validate(XSSFSheet sheet1, XSSFSheet sheet2) {
-		arr[0] = sheet1;
-		arr[1] = sheet2;
+
+		arr = new XSSFSheet[] { sheet1, sheet2 };
+
 	}
-	
-	Boolean isNamePresent() {
-		for(int i = 0; i<=arr.length; i++) {
-			
-			for(int j=0; j<arr[i].getRow(0).getLastCellNum(); j++) {
+
+	int isNamePresent() {
+		int x = 0;
+		for (int i = 0; i < arr.length; i++) {
+			x = 0;
+			for (int j = 0; j < arr[i].getRow(0).getLastCellNum(); j++) {
 				Cell columnName = arr[i].getRow(0).getCell(j);
-				
-				if(columnName.getStringCellValue()=="Name" || columnName.getStringCellValue()=="name") {
-					return true;
+				if (columnName.getStringCellValue().compareToIgnoreCase("name") == 0) {
+					x = 1;
 				}
 			}
-			
 		}
-		return null;
+		return x;
 	}
 
 }
