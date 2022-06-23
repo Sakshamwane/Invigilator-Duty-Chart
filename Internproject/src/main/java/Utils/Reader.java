@@ -28,12 +28,12 @@ public class Reader {
 	}
 	
 	void test() {
-//		System.out.println(sheet1.getPhysicalNumberOfRows());
-//		System.out.println(sheet2.getPhysicalNumberOfRows());
+		System.out.println(sheet1.getPhysicalNumberOfRows());
+		System.out.println(sheet2.getPhysicalNumberOfRows());
 		
 		Validate obj = new Validate(sheet1, sheet2);
 		
-		if(obj.isNamePresent()) {
+		if(obj.isNamePresent()==1) {
 			System.out.println("Name is present");
 		} else {
 			System.out.println("Name is not present, give valid files");

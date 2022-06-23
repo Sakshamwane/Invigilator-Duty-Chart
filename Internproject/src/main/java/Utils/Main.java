@@ -3,8 +3,8 @@ package Utils;
 public class Main {
 	
 	public static void main(String[] args) {
-		String f1 = "./src/main/java/DataSheet1.xlsx";
-		String f2 = "./src/main/java/DataSheet1.xlsx";
+		String f1 = "Internproject/src/main/java/testfile.xlsx";
+		String f2 = "Internproject/src/main/java/testfile.xlsx";
 		
 		String s1 = "Sheet1";
 		String s2 = "Sheet1";
