@@ -31,7 +31,7 @@ public class Reader {
 		
 		Validate obj = new Validate(sheet1, sheet2);
 		
-		if(obj.isNamePresent()==1) {
+		if(obj.isNamePresent()) {
 			System.out.println("Name is present");
 		} else {
 			System.out.println("Name is not present, give valid files");
