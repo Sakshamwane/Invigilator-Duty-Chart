@@ -15,17 +15,15 @@ public class Data {
     private int noOfStudents;
     private int noOfInvigilators;
 
-    public Data(String name, int age, String department, String designation, Boolean availability, ArrayList duty,
-            Date date, int noOfStudents, int noOfInvigilators) {
+    public Data(String name, String department, String designation) {
         this.name = name;
-        this.age = age;
         this.department = department;
         this.designation = designation;
-        this.availability = availability;
-        this.duty = duty;
-        this.date = date;
-        this.noOfStudents = noOfStudents;
-        this.noOfInvigilators = noOfInvigilators;
+        //this.availability = availability;
+        //this.duty = duty;
+        //this.date = date;
+        //this.noOfStudents = noOfStudents;
+        //this.noOfInvigilators = noOfInvigilators;
     }
 
     String getName(){
