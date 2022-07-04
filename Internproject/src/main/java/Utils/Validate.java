@@ -25,18 +25,17 @@ public class Validate {
 		return false;
 	}
 
-	int isDepartmentValid(){
+	boolean isDepartmentValid(){
 		int x=0;
 		for (int i = 0; i < arr.length; i++) {
-			x = 0;
 			for (int j = 0; j < arr[i].getRow(0).getLastCellNum(); j++) {
 				Cell columnName = arr[i].getRow(0).getCell(j);
 				if (columnName.getStringCellValue().compareToIgnoreCase("department") == 0) {
-					x = 1;
+					return true;
 				}
 			}
 		}
-		return x;
+		return false;
 	}
 
 }

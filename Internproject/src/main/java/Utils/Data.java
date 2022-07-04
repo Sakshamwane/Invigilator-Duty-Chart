@@ -15,15 +15,8 @@ public class Data {
     private int noOfStudents;
     private int noOfInvigilators;
 
-    public Data(String name, String department, String designation) {
+    public Data(String name) {
         this.name = name;
-        this.department = department;
-        this.designation = designation;
-        //this.availability = availability;
-        //this.duty = duty;
-        //this.date = date;
-        //this.noOfStudents = noOfStudents;
-        //this.noOfInvigilators = noOfInvigilators;
     }
 
     String getName(){

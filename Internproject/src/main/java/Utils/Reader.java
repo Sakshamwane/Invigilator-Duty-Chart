@@ -1,5 +1,7 @@
 package Utils;
 
+import java.util.ArrayList;
+
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -9,6 +11,8 @@ public class Reader {
 	static XSSFSheet sheet1;
 	static XSSFWorkbook workBook2;
 	static XSSFSheet sheet2;
+
+	public ArrayList<Data> professors = new ArrayList<Data>();
 
 	
 	//Parameterized constructor
@@ -36,7 +40,34 @@ public class Reader {
 		} else {
 			System.out.println("Name is not present, give valid files");
 		}
+
+		if(obj.isDepartmentValid()){
+			System.out.println("Department is present");
+		} else {
+			System.out.println("Department is not present give valid files");
+		}
 	}
-	
+
+	void store(){
+		try{
+			for(int i = 4, j = 0; i < sheet1.getPhysicalNumberOfRows(); i++, j++){
+				professors.add(new Data(sheet1.getRow(i).getCell(1).toString()));
+				professors.get(j).setDesignation(sheet1.getRow(i).getCell(2).toString());
+				professors.get(j).setDepartment(sheet1.getRow(i).getCell(3).toString());
+			}
+		
+			
+		} catch(Exception e){
+			System.out.println("Array Index Out Of Bound");
+		}
+	}
+
+	void print(){
+		for(int i = 0; i<professors.size(); i++){
+			System.out.println(professors.get(i).getName() + "\t" + professors.get(i).getDesignation() + "\t" + professors.get(i).getDepartment());
+		}
+	}
+
+
 
 }
