@@ -11,8 +11,11 @@ public class Reader {
 	static XSSFSheet sheet1;
 	static XSSFWorkbook workBook2;
 	static XSSFSheet sheet2;
+	static XSSFWorkbook headerWorkBook;
+	static XSSFSheet headerWorkSheet;
 
 	public ArrayList<Data> professors = new ArrayList<Data>();
+	public ArrayList<Header> header = new ArrayList<Header>();
 
 	
 	//Parameterized constructor
@@ -45,6 +48,27 @@ public class Reader {
 			System.out.println("Department is present");
 		} else {
 			System.out.println("Department is not present give valid files");
+		}
+	}
+
+	void readHeader(String filePathForHeader, String sheetName){
+		try{
+			headerWorkBook = new XSSFWorkbook(filePathForHeader);
+			headerWorkSheet = headerWorkBook.getSheet(sheetName);
+			for(int i = 1; i<headerWorkSheet.getPhysicalNumberOfRows(); i++){
+				header.add(new Header(headerWorkSheet.getRow(i).getCell(0).toString()));
+			}
+
+		} catch(Exception e){
+			System.out.println(e.getCause());
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	void printHeader(){
+		for(int i = 0; i<header.size(); i++){
+			System.out.println(header.get(i));
 		}
 	}
 

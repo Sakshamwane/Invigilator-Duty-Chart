@@ -11,9 +11,7 @@ public class Data {
     private String designation;
     private Boolean availability;
     private ArrayList duty;
-    private Date date;
-    private int noOfStudents;
-    private int noOfInvigilators;
+   
 
     public Data(String name) {
         this.name = name;
@@ -57,30 +55,6 @@ public class Data {
 
     void setAvaibility(Boolean avail){
         this.availability = avail;
-    }
-
-    Date getDate(){
-        return date;
-    }
-
-    void setDate(Date date){
-        this.date = date;
-    }
-
-    int getNoOfStudents(){
-        return noOfStudents;
-    }
-
-    void setNoOfStudents(int noOfStudents){
-        this.noOfStudents = noOfStudents;
-    }
-
-    int getNoOfInvigilators(){
-        return noOfInvigilators;
-    }
-
-    void setNoOfInvigilators(int noOfInvigilators){
-        this.noOfInvigilators = noOfInvigilators;
     }
 
 }
