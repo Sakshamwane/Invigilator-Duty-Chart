@@ -3,20 +3,20 @@ package Utils;
 import java.util.Date;
 
 public class Header {
-    private String date;
+    private Date date;
     private int noOfStudents;
     private int noOfInvigilators;
 
-    public Header(String date){
+    public Header(Date date){
         this.date = date;
         
     }
 
-    String getDate(){
+    Date getDate(){
         return date;
     }
 
-    void setDate(String date){
+    void setDate(Date date){
         this.date = date;
     }
 

@@ -21,6 +21,7 @@ public class Main {
 		r1.store();
 		r1.print();
 		r1.readHeader(f3, s3);
+		r1.printHeader();
 	    
 	}
 }

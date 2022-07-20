@@ -1,5 +1,6 @@
 package Utils;
 
+import java.util.Date;
 import java.util.ArrayList;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -56,7 +57,7 @@ public class Reader {
 			headerWorkBook = new XSSFWorkbook(filePathForHeader);
 			headerWorkSheet = headerWorkBook.getSheet(sheetName);
 			for(int i = 1; i<headerWorkSheet.getPhysicalNumberOfRows(); i++){
-				header.add(new Header(headerWorkSheet.getRow(i).getCell(0).toString()));
+				header.add(new Header(headerWorkSheet.getRow(i).getCell(0).getDateCellValue()));
 			}
 
 		} catch(Exception e){
@@ -68,7 +69,7 @@ public class Reader {
 
 	void printHeader(){
 		for(int i = 0; i<header.size(); i++){
-			System.out.println(header.get(i));
+			System.out.println(header.get(i).getDate());
 		}
 	}
 
