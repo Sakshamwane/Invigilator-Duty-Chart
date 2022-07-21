@@ -8,10 +8,13 @@ import java.util.ArrayList;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.sl.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 public class Reader {
 	
@@ -107,6 +110,15 @@ public class Reader {
 		XSSFSheet resultSheet = resultWorkbook.createSheet("Sheet 1");
 		CreationHelper createHelper = resultWorkbook.getCreationHelper();
 		try {
+			Row row1Row = resultSheet.createRow(0);
+			Cell cell2 = row1Row.createCell(0);
+			cell2.setCellValue("SGSITS, INDORE");
+			CellStyle cellStyle1 = resultWorkbook.createCellStyle();
+			cellStyle1.setAlignment(HorizontalAlignment.CENTER);
+			// cellStyle.setAlignment(VerticalAlignment.MIDDLE);
+			cell2.setCellStyle(cellStyle1);
+
+			resultSheet.addMergedRegion(new CellRangeAddress(0, 3, 0, header.size()+2));
 			for (int counter = 0; counter < professors.size(); counter++){
 				Row row = resultSheet.createRow(counter+5);
 				Cell cell1 = row.createCell(0);
