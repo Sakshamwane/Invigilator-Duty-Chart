@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 
 public class Reader {
@@ -104,15 +105,26 @@ public class Reader {
 		
 		XSSFWorkbook resultWorkbook = new XSSFWorkbook();
 		XSSFSheet resultSheet = resultWorkbook.createSheet("Sheet 1");
-		Row row1 = resultSheet.createRow(0);
-		Row row2 = resultSheet.createRow(1);
+		CreationHelper createHelper = resultWorkbook.getCreationHelper();
 		try {
 			for (int counter = 0; counter < professors.size(); counter++){
-					Row row = resultSheet.createRow(counter+2);
-					Cell cell = row.createCell(0);
-					cell.setCellValue(professors.get(counter).getName());
-				}
+				Row row = resultSheet.createRow(counter+5);
+				Cell cell1 = row.createCell(0);
+				cell1.setCellValue(counter+1);
+				Cell cell = row.createCell(1);
+				cell.setCellValue(professors.get(counter).getName());
+			}
+			
+			Row row =resultSheet.createRow(4);
+			for(int counter = 0;counter<header.size();counter++){
+				CellStyle cellStyle = resultWorkbook.createCellStyle();
+				cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yy"));
+				Cell cell = row.createCell(counter+2);
+				cell.setCellValue(header.get(counter).getDate());
+				cell.setCellStyle(cellStyle);
+			}
 				resultWorkbook.write(outputStream);
+				resultWorkbook.close();
 		} catch(Exception e) {
 			System.out.println(e.getCause());
 			System.out.println(e.getMessage());
