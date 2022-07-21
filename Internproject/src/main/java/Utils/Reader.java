@@ -1,11 +1,15 @@
 package Utils;
 
 import java.util.Date;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 
 public class Reader {
@@ -100,17 +104,15 @@ public class Reader {
 		
 		XSSFWorkbook resultWorkbook = new XSSFWorkbook();
 		XSSFSheet resultSheet = resultWorkbook.createSheet("Sheet 1");
-
+		Row row1 = resultSheet.createRow(0);
+		Row row2 = resultSheet.createRow(1);
 		try {
-			for (int counter = 2; counter < professors.size(); counter++){
-				Row row = resultSheet.createRow(counter);
-				Cell cell = row.createCell(0);
-
-				for(int i = 0; i < professors.size(); i++){
-					cell.setCellValue(professors.get(i));
+			for (int counter = 0; counter < professors.size(); counter++){
+					Row row = resultSheet.createRow(counter+2);
+					Cell cell = row.createCell(0);
+					cell.setCellValue(professors.get(counter).getName());
 				}
 				resultWorkbook.write(outputStream);
-			}
 		} catch(Exception e) {
 			System.out.println(e.getCause());
 			System.out.println(e.getMessage());
