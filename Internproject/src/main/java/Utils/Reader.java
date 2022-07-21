@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 public class Reader {
 	
@@ -94,5 +96,25 @@ public class Reader {
 	}
 
 
+	void generateFile(FileOutputStream outputStream) throws SQLException, IOException{
+		
+		XSSFWorkbook resultWorkbook = new XSSFWorkbook();
+		XSSFSheet resultSheet = resultWorkbook.createSheet("Sheet 1");
+
+		try {
+			for (int counter = 2; counter < professors.size(); counter++){
+				Row row = resultSheet.createRow(counter);
+				Cell cell = row.createCell(0);
+
+				for(int i = 0; i < professors.size(); i++){
+					cell.setCellValue(professors.get(i));
+				}
+				resultWorkbook.write(outputStream);
+			}
+		} catch(Exception e) {
+			System.out.println(e.getCause());
+			System.out.println(e.getMessage());
+		}
+	}
 
 }
