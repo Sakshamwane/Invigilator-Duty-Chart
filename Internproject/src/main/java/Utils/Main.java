@@ -1,6 +1,5 @@
 package Utils;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.io.FileOutputStream;
 
@@ -22,9 +21,9 @@ public class Main {
 		
 	    Reader r1 = new Reader(f1, s1, f2, s2);
 		r1.store();
-		r1.print();
+		// r1.print();
 		r1.readHeader(f3, s3);
-		r1.printHeader();
+		// r1.printHeader();
 	    
 		try {
 			outputStream = new FileOutputStream("ResultSheet.xlsx");

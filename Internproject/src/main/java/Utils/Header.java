@@ -4,12 +4,17 @@ import java.util.Date;
 
 public class Header {
     private Date date;
+    public int assignendDuties;
     private int noOfStudents;
     private int noOfInvigilators;
 
+
+    public void increaseDuty(){
+        this.assignendDuties++;
+    }
+
     public Header(Date date){
-        this.date = date;
-        
+        this.date = date;  
     }
 
     Date getDate(){
