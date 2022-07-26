@@ -11,6 +11,7 @@ public class Data {
     private String designation;
     private Boolean availability;
     public ArrayList<Date> duty= new ArrayList<Date>();
+    private int currentDuties=0;
     public int totalDuty;
    
 
@@ -59,16 +60,22 @@ public class Data {
     }
 
     int getTotalDuty() {
-        if (getDesignation().toLowerCase() == "professor")
+        if (getDesignation().toLowerCase().trim() == "professor")
             this.totalDuty = 1;
-        else if (getDesignation().toLowerCase() == "associate professor")
+        else if (getDesignation().toLowerCase().trim() == "associate professor")
             this.totalDuty = 2;
-        else if (getDesignation().toLowerCase() == "assistant professor"|| getDesignation().toLowerCase() == "asstt.w/s supdt.")
+        else if (getDesignation().toLowerCase().trim() == "assistant professor"|| getDesignation().toLowerCase() == "asstt.w/s supdt.")
             this.totalDuty = 3;
-        else if (getDesignation().toLowerCase() == "head" || getDesignation().toLowerCase() == "dean"|| getDesignation().toLowerCase() == "director")
+        else if (getDesignation().toLowerCase().trim() == "head" || getDesignation().toLowerCase() == "dean"|| getDesignation().toLowerCase() == "director")
             this.totalDuty = 0;
         else
             this.totalDuty = 10;
         return totalDuty;
+    }
+    int getNoOfDuties(){
+        return currentDuties;
+    }
+    void increaseNoOfDuites(){
+        this.currentDuties++;
     }
 }
