@@ -13,7 +13,7 @@ public class Duty {
             // }
             int p = random.nextInt(list.size());
             int d = random.nextInt(date.size());
-            if (list.get(p).getName() != null && list.get(p).getNoOfDuties() < list.get(p).totalDuty
+            if (list.get(p).getName() != "" && list.get(p).getNoOfDuties() < list.get(p).totalDuty
                     && date.get(d).assignendDuties < date.get(d).getNoOfInvigilators()) {
                 date.get(d).increaseDuty();
                 list.get(p).increaseNoOfDuites();

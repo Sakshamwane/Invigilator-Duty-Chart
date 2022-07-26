@@ -68,8 +68,7 @@ public class Reader {
 				header.add(new Header(headerWorkSheet.getRow(i).getCell(0).getDateCellValue(),
 						headerWorkSheet.getRow(i).getCell(1).getNumericCellValue()));
 			}
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getCause());
 			System.out.println(e.getMessage());
 		}
@@ -85,7 +84,7 @@ public class Reader {
 	void store() {
 		try {
 			for (int i = 4, j = 0; i < sheet1.getPhysicalNumberOfRows(); i++, j++) {
-				if (sheet1.getRow(i).getCell(0).toString().trim().compareToIgnoreCase("ELECTRICAL ENGG. DEPTT. ")==0)
+				if (sheet1.getRow(i).getCell(0).toString().trim().compareToIgnoreCase("ELECTRICAL ENGG. DEPTT. ") == 0)
 					continue;
 				else {
 					professors.add(new Data(sheet1.getRow(i).getCell(1).toString()));
@@ -143,10 +142,10 @@ public class Reader {
 			duty.FillDuty(professors, header);
 			for (int i = 0; i < professors.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
-					if(professors.get(i).duty.contains(header.get(j).getDate())){
+					if (professors.get(i).duty.contains(header.get(j).getDate())) {
 						// if (professors.get(i).duty.get(j) == header.get(j).getDate()) {
-							// resultSheet.getRow(i+5).getCell(j+2).setCellValue("D");
-							resultSheet.getRow(i + 5).createCell(j + 2).setCellValue("D");
+						// resultSheet.getRow(i+5).getCell(j+2).setCellValue("D");
+						resultSheet.getRow(i + 5).createCell(j + 2).setCellValue("D");
 						// }
 					}
 				}
