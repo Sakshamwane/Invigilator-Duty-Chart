@@ -10,72 +10,78 @@ public class Data {
     private String department;
     private String designation;
     private Boolean availability;
-    public ArrayList<Date> duty= new ArrayList<Date>();
-    private int currentDuties=0;
-    public int totalDuty;
-   
+    public ArrayList<Date> duty = new ArrayList<Date>();
+    private int currentDuties = 0;
+    private int totalDuty=0;
 
     public Data(String name) {
         this.name = name;
     }
 
-    String getName(){
+    String getName() {
         return name;
     }
 
-    void setName(String name){
+    void setName(String name) {
         this.name = name;
     }
 
-    int getAge(){
+    int getAge() {
         return age;
     }
 
-    void setAge(int age){
+    void setAge(int age) {
         this.age = age;
     }
-    
-    String getDesignation(){
+
+    String getDesignation() {
         return designation;
     }
 
-    void setDesignation(String designation){
+    void setDesignation(String designation) {
         this.designation = designation;
     }
 
-    String getDepartment(){
-        return department;
+    String getDepartment() {
+        return this.department;
     }
 
-    void setDepartment(String department){
+    void setDepartment(String department) {
         this.department = department;
     }
 
-    Boolean getAvaibility(){
+    Boolean getAvaibility() {
         return availability;
     }
 
-    void setAvaibility(Boolean avail){
+    void setAvaibility(Boolean avail) {
         this.availability = avail;
     }
 
-    int getTotalDuty() {
-        if (getDesignation().toLowerCase().trim() == "professor")
+    void setTotalDuty() {
+        if (getDesignation().compareToIgnoreCase("professor")==0)
             this.totalDuty = 1;
-        else if (getDesignation().toLowerCase().trim() == "associate professor")
+        else if (getDesignation().compareToIgnoreCase("associate professor")==0)
             this.totalDuty = 2;
-        else if (getDesignation().toLowerCase().trim() == "assistant professor"|| getDesignation().toLowerCase() == "asstt.w/s supdt.")
+        else if (getDesignation().compareToIgnoreCase("assistant professor")==0
+                || getDesignation().compareToIgnoreCase("asstt.w/s supdt.")==0)
             this.totalDuty = 3;
-        else if (getDesignation().toLowerCase().trim() == "head" || getDesignation().toLowerCase() == "dean"|| getDesignation().toLowerCase() == "director")
+        else if (getDesignation().compareToIgnoreCase("head")==0 || getDesignation().compareToIgnoreCase("dean")==0
+                || getDesignation().compareToIgnoreCase("director")==0)
             this.totalDuty = 0;
         else
-            this.totalDuty = 10;
-        return totalDuty;
+            this.totalDuty = 6;
     }
-    int getNoOfDuties(){
-        return currentDuties;
+    int getTotalDuty(){
+        setTotalDuty();
+        return this.totalDuty;
     }
-    void increaseNoOfDuites(){
+
+    int getNoOfDuties() {
+        return this.currentDuties;
+    }
+
+    void increaseNoOfDuites() {
         this.currentDuties++;
     }
 }

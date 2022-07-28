@@ -4,11 +4,20 @@ import java.util.Date;
 
 public class Header {
     private Date date;
-    public int assignendDuties=0;
+    private int assignendDuties=0;
     private double noOfStudents;
     private int noOfInvigilators;
+    private int totalD=0;
 
-
+    public void increaseTotalD(){
+        this.totalD++;
+    }
+    public int getTotalD(){
+        return this.totalD;
+    }
+    public int getAssignendDuties(){
+        return this.assignendDuties;
+    }
     public void increaseDuty(){
         this.assignendDuties++;
     }
@@ -35,7 +44,7 @@ public class Header {
     }
 
     int getNoOfInvigilators(){
-        return (int)noOfStudents/20;
+        return (int)this.noOfStudents/20;
     }
 
     void setNoOfInvigilators(int noOfInvigilators){

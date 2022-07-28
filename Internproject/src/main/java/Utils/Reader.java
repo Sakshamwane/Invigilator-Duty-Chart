@@ -24,8 +24,8 @@ public class Reader {
 	static XSSFWorkbook headerWorkBook;
 	static XSSFSheet headerWorkSheet;
 
-	public ArrayList<Data> professors = new ArrayList<Data>(1000);
-	public ArrayList<Header> header = new ArrayList<Header>(1000);
+	public ArrayList<Data> professors = new ArrayList<Data>();
+	public ArrayList<Header> header = new ArrayList<Header>();
 
 	// Parameterized constructor
 	public Reader(String FilePath1, String SheetName1, String FilePath2, String SheetName2) {
@@ -43,23 +43,6 @@ public class Reader {
 		}
 	}
 
-	// void test() {
-
-	// Validate obj = new Validate(sheet1, sheet2);
-
-	// if (obj.isNamePresent()) {
-	// System.out.println("Name is present");
-	// } else {
-	// System.out.println("Name is not present, give valid files");
-	// }
-
-	// if (obj.isDepartmentValid()) {
-	// System.out.println("Department is present");
-	// } else {
-	// System.out.println("Department is not present give valid files");
-	// }
-	// }
-
 	void readHeader(String filePathForHeader, String sheetName) {
 		try {
 			headerWorkBook = new XSSFWorkbook(filePathForHeader);
@@ -74,12 +57,6 @@ public class Reader {
 		}
 
 	}
-
-	// void printHeader() {
-	// for (int i = 0; i < header.size(); i++) {
-	// System.out.println(header.get(i).getDate());
-	// }
-	// }
 
 	void store() {
 		try {
@@ -98,15 +75,7 @@ public class Reader {
 			System.out.println("Array Index Out Of Bound");
 		}
 	}
-
-	// void print() {
-	// for (int i = 0; i < professors.size(); i++) {
-	// System.out.println(professors.get(i).getName() + "\t" +
-	// professors.get(i).getDesignation() + "\t"
-	// + professors.get(i).getDepartment());
-	// }
-	// }
-
+	
 	void generateFile(FileOutputStream outputStream) throws SQLException, IOException {
 
 		XSSFWorkbook resultWorkbook = new XSSFWorkbook();
@@ -140,17 +109,19 @@ public class Reader {
 			}
 			Duty duty = new Duty();
 			duty.FillDuty(professors, header);
+			resultSheet.createRow(professors.size()+5);
 			for (int i = 0; i < professors.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
 					if (professors.get(i).duty.contains(header.get(j).getDate())) {
-						// if (professors.get(i).duty.get(j) == header.get(j).getDate()) {
-						// resultSheet.getRow(i+5).getCell(j+2).setCellValue("D");
 						resultSheet.getRow(i + 5).createCell(j + 2).setCellValue("D");
-						// }
+						header.get(j).increaseTotalD();
+						resultSheet.getRow(i+5).createCell(header.size()+2).setCellValue(professors.get(i).duty.size());
+						resultSheet.getRow(professors.size()+5).createCell(j+2).setCellValue(header.get(j).getTotalD());
 					}
 				}
-				// System.out.println(professors.get(i).duty.size());
+				// System.out.println(professors.get(i).getDesignation());
 			}
+			resultSheet.autoSizeColumn(1);
 			resultWorkbook.write(outputStream);
 			resultWorkbook.close();
 		} catch (Exception e) {
