@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.print.DocFlavor.STRING;
-
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -32,7 +30,7 @@ public class Reader {
 	public ArrayList<Data> professors = new ArrayList<Data>();
 	public ArrayList<Data> contract = new ArrayList<Data>();
 	public ArrayList<Header> header = new ArrayList<Header>();
-	public ArrayList<Data> finaList = new ArrayList<Data>();
+	public ArrayList<Data> finalList = new ArrayList<Data>();
 	public String branch_keyword[] = { "Civil", "Electrical", "Industrial", "Central", "Computer Engineering",
 			"Telecommunication", "Mechanical", "Instrumentation", "Information", "Application", "Biomedical",
 			"Pharmacy", "Management", "MBA", "Physics", "Chemistry", "Mathematics", "Humanities" };
@@ -83,25 +81,27 @@ public class Reader {
 					j++;
 				}
 			}
-			for (int i = 3, j = 0; i < sheet2.getPhysicalNumberOfRows() - 1; i++) {
+			for (int i = 3, j = 0; i < sheet2.getPhysicalNumberOfRows() - 1; i++,j++) {
 				contract.add(new Data(sheet2.getRow(i).getCell(1).toString()));
 				contract.get(j).setDesignation("Contract faculty");
 				contract.get(j).setDepartment(sheet2.getRow(i).getCell(2).toString());
 			}
 			// for(int i=0;i<professors.size();i++){
-			// 	System.out.println(professors.get(i).getName()+"\t"+professors.get(i).getDepartment());
+			// 	System.out.println(professors.get(i).getDepartment());
 			// }
 			for (int i = 0; i < branch_keyword.length; i++) {
 				for (int j = 0; j < professors.size(); j++) {
+					// System.out.println(professors.get(j).getDepartment());
 					if (professors.get(j).getDepartment().contains(branch_keyword[i])) {
-						finaList.add(professors.get(j));
-						// System.out.println(finaList.add(professors.get(j)));
+						finalList.add(professors.get(j));
+						// System.out.println(finalList.add(professors.get(j)));
 					}
 				}
 				for (int k = 0; k < contract.size(); k++) {
+					// System.out.println(contract.get(k).getDepartment());
 					if (contract.get(k).getDepartment().contains(branch_keyword[i])) {
-						finaList.add(contract.get(k));
-						// System.out.println(finaList.add(contract.get(k)));
+						finalList.add(contract.get(k));
+						// System.out.println(finalList.add(contract.get(k)));
 					}
 				}
 			}
@@ -136,12 +136,12 @@ public class Reader {
 			cell2.setCellStyle(cellStyle1);
 
 			resultSheet.addMergedRegion(new CellRangeAddress(0, 3, 0, header.size() + 2));
-			for (int counter = 0; counter < professors.size(); counter++) {
+			for (int counter = 0; counter < finalList.size(); counter++) {
 				Row row = resultSheet.createRow(counter + 5);
 				Cell cell1 = row.createCell(0);
 				cell1.setCellValue(counter + 1);
 				Cell cell = row.createCell(1);
-				cell.setCellValue(professors.get(counter).getName());
+				cell.setCellValue(finalList.get(counter).getName());
 			}
 
 			Row row = resultSheet.createRow(4);
@@ -153,16 +153,16 @@ public class Reader {
 				cell.setCellStyle(cellStyle);
 			}
 			Duty duty = new Duty();
-			duty.FillDuty(professors, header);
-			resultSheet.createRow(professors.size() + 5);
-			for (int i = 0; i < professors.size(); i++) {
+			duty.FillDuty(finalList, header);
+			resultSheet.createRow(finalList.size() + 5);
+			for (int i = 0; i < finalList.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
-					if (professors.get(i).duty.contains(header.get(j).getDate())) {
+					if (finalList.get(i).duty.contains(header.get(j).getDate())) {
 						resultSheet.getRow(i + 5).createCell(j + 2).setCellValue("D");
 						header.get(j).increaseTotalD();
 						resultSheet.getRow(i + 5).createCell(header.size() + 2)
-								.setCellValue(professors.get(i).duty.size());
-						resultSheet.getRow(professors.size() + 5).createCell(j + 2)
+								.setCellValue(finalList.get(i).duty.size());
+						resultSheet.getRow(finalList.size() + 5).createCell(j + 2)
 								.setCellValue(header.get(j).getTotalD());
 					}
 				}
