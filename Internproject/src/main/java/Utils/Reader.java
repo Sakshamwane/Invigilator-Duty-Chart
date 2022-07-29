@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.print.DocFlavor.STRING;
+
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -17,15 +21,21 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 public class Reader {
 
-	static XSSFWorkbook workBook1;
+	static XSSFWorkbook workBook1; // permanent faculties data
 	static XSSFSheet sheet1;
-	static XSSFWorkbook workBook2;
+	static XSSFWorkbook workBook2; // contract faculties data
 	static XSSFSheet sheet2;
+
 	static XSSFWorkbook headerWorkBook;
 	static XSSFSheet headerWorkSheet;
 
 	public ArrayList<Data> professors = new ArrayList<Data>();
+	public ArrayList<Data> contract = new ArrayList<Data>();
 	public ArrayList<Header> header = new ArrayList<Header>();
+	public ArrayList<Data> finaList = new ArrayList<Data>();
+	public String branch_keyword[] = { "Civil", "Electrical", "Industrial", "Central", "Computer Engineering",
+			"Telecommunication", "Mechanical", "Instrumentation", "Information", "Application", "Biomedical",
+			"Pharmacy", "Management", "MBA", "Physics", "Chemistry", "Mathematics", "Humanities" };
 
 	// Parameterized constructor
 	public Reader(String FilePath1, String SheetName1, String FilePath2, String SheetName2) {
@@ -60,22 +70,47 @@ public class Reader {
 
 	void store() {
 		try {
-			for (int i = 4, j = 0; i < sheet1.getPhysicalNumberOfRows(); i++, j++) {
-				if (sheet1.getRow(i).getCell(0).toString().trim().compareToIgnoreCase("ELECTRICAL ENGG. DEPTT. ") == 0)
+			for (int i = 4, j = 0; i < sheet1.getPhysicalNumberOfRows(); i++) {
+				if (sheet1.getRow(i).getCell(0).getCellType()==CellType.STRING){
+					// System.out.println("i");
 					continue;
+				}
 				else {
 					professors.add(new Data(sheet1.getRow(i).getCell(1).toString()));
 					professors.get(j).setDesignation(sheet1.getRow(i).getCell(2).toString());
 					professors.get(j).setDepartment(sheet1.getRow(i).getCell(3).toString());
 					professors.get(j).getTotalDuty();
+					j++;
 				}
 			}
-
+			for (int i = 3, j = 0; i < sheet2.getPhysicalNumberOfRows() - 1; i++) {
+				contract.add(new Data(sheet2.getRow(i).getCell(1).toString()));
+				contract.get(j).setDesignation("Contract faculty");
+				contract.get(j).setDepartment(sheet2.getRow(i).getCell(2).toString());
+			}
+			// for(int i=0;i<professors.size();i++){
+			// 	System.out.println(professors.get(i).getName()+"\t"+professors.get(i).getDepartment());
+			// }
+			for (int i = 0; i < branch_keyword.length; i++) {
+				for (int j = 0; j < professors.size(); j++) {
+					if (professors.get(j).getDepartment().contains(branch_keyword[i])) {
+						finaList.add(professors.get(j));
+						// System.out.println(finaList.add(professors.get(j)));
+					}
+				}
+				for (int k = 0; k < contract.size(); k++) {
+					if (contract.get(k).getDepartment().contains(branch_keyword[i])) {
+						finaList.add(contract.get(k));
+						// System.out.println(finaList.add(contract.get(k)));
+					}
+				}
+			}
 		} catch (Exception e) {
-			System.out.println("Array Index Out Of Bound");
+			e.getCause();
+			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	void generateFile(FileOutputStream outputStream) throws SQLException, IOException {
 
 		XSSFWorkbook resultWorkbook = new XSSFWorkbook();
@@ -84,10 +119,20 @@ public class Reader {
 		try {
 			Row row1Row = resultSheet.createRow(0);
 			Cell cell2 = row1Row.createCell(0);
-			cell2.setCellValue("Shri G. S. Institute of Technology & Science Indore -452003");
+			cell2.setCellValue(
+					"Shri G. S. Institute of Technology & Science Indore -452003\nUG/PG Examination April 2022\n Invigilation Duty Chart\n(Exam Time is 11:00 AM TO 02:00 PM)\nReporting Time for Invigilators is 10:30 AM Sharp in ATC-308\n(II FLOOR ATC BUILDING)");
+
+			Font newFont = cell2.getSheet().getWorkbook().createFont();
+			newFont.setBold(true);
+			// newFont.setColor(10);
+			newFont.setFontHeightInPoints((short) 10);
+			// newFont.setItalic(true);
+
 			CellStyle cellStyle1 = resultWorkbook.createCellStyle();
 			cellStyle1.setAlignment(HorizontalAlignment.CENTER);
-			cellStyle1.setVerticalAlignment(VerticalAlignment.CENTER);
+			cellStyle1.setVerticalAlignment(VerticalAlignment.TOP);
+			cellStyle1.setWrapText(true);
+			cellStyle1.setFont(newFont);
 			cell2.setCellStyle(cellStyle1);
 
 			resultSheet.addMergedRegion(new CellRangeAddress(0, 3, 0, header.size() + 2));
@@ -109,14 +154,16 @@ public class Reader {
 			}
 			Duty duty = new Duty();
 			duty.FillDuty(professors, header);
-			resultSheet.createRow(professors.size()+5);
+			resultSheet.createRow(professors.size() + 5);
 			for (int i = 0; i < professors.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
 					if (professors.get(i).duty.contains(header.get(j).getDate())) {
 						resultSheet.getRow(i + 5).createCell(j + 2).setCellValue("D");
 						header.get(j).increaseTotalD();
-						resultSheet.getRow(i+5).createCell(header.size()+2).setCellValue(professors.get(i).duty.size());
-						resultSheet.getRow(professors.size()+5).createCell(j+2).setCellValue(header.get(j).getTotalD());
+						resultSheet.getRow(i + 5).createCell(header.size() + 2)
+								.setCellValue(professors.get(i).duty.size());
+						resultSheet.getRow(professors.size() + 5).createCell(j + 2)
+								.setCellValue(header.get(j).getTotalD());
 					}
 				}
 				// System.out.println(professors.get(i).getDesignation());

@@ -12,7 +12,7 @@ public class Data {
     private Boolean availability;
     public ArrayList<Date> duty = new ArrayList<Date>();
     private int currentDuties = 0;
-    private int totalDuty=0;
+    private int totalDuty = 0;
 
     public Data(String name) {
         this.name = name;
@@ -59,20 +59,21 @@ public class Data {
     }
 
     void setTotalDuty() {
-        if (getDesignation().compareToIgnoreCase("professor")==0)
+        if (getDesignation().compareToIgnoreCase("professor") == 0)
             this.totalDuty = 1;
-        else if (getDesignation().compareToIgnoreCase("associate professor")==0)
+        else if (getDesignation().compareToIgnoreCase("associate professor") == 0)
             this.totalDuty = 2;
-        else if (getDesignation().compareToIgnoreCase("assistant professor")==0
-                || getDesignation().compareToIgnoreCase("asstt.w/s supdt.")==0)
+        else if (getDesignation().compareToIgnoreCase("assistant professor") == 0
+                || getDesignation().compareToIgnoreCase("asstt.w/s supdt.") == 0)
             this.totalDuty = 3;
-        else if (getDesignation().compareToIgnoreCase("head")==0 || getDesignation().compareToIgnoreCase("dean")==0
-                || getDesignation().compareToIgnoreCase("director")==0)
+        else if (getDesignation().compareToIgnoreCase("head") == 0 || getDesignation().compareToIgnoreCase("dean") == 0
+                || getDesignation().compareToIgnoreCase("director") == 0)
             this.totalDuty = 0;
         else
             this.totalDuty = 6;
     }
-    int getTotalDuty(){
+
+    int getTotalDuty() {
         setTotalDuty();
         return this.totalDuty;
     }

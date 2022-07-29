@@ -25,7 +25,7 @@ public class Validate {
 		return false;
 	}
 
-	boolean isDepartmentValid(){
+	boolean isDepartmentValid() {
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[i].getRow(0).getLastCellNum(); j++) {
 				Cell columnName = arr[i].getRow(0).getCell(j);
