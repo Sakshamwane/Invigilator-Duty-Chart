@@ -26,11 +26,11 @@ public class Duty {
             int p = random.nextInt(list.size());
             int d = random.nextInt(date.size());
             if (list.get(p).getName() != "" && list.get(p).getNoOfDuties() < list.get(p).getTotalDuty()
-                    && date.get(d).getAssignendDuties() < date.get(d).getNoOfInvigilators()) {
+                    && date.get(d).getAssignendDuties() < date.get(d).getNoOfInvigilators() && !list.get(p).duty.contains(date.get(d).getDate())) {
                 date.get(d).increaseDuty();
                 list.get(p).increaseNoOfDuites();
                 list.get(p).duty.add(date.get(d).getDate());
-                System.out.println(date.get(d).getDate());
+                System.out.println(date.get(d).getDate()+"\t"+i);
                 i++;
                 // System.out.println(list.get(p).getName() + list.get(p).duty);
             }

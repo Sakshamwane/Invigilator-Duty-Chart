@@ -157,7 +157,7 @@ public class Reader {
 			for (int i = 0; i < finalList.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
 					if (finalList.get(i).duty.contains(header.get(j).getDate())) {
-						resultSheet.getRow(i + 5).createCell(j + 2).setCellValue("D");
+						resultSheet.getRow(i + 5).createCell(j + 2).setCellValue(1);;
 						header.get(j).increaseTotalD();
 						resultSheet.getRow(i + 5).createCell(header.size() + 2)
 								.setCellValue(finalList.get(i).duty.size());
