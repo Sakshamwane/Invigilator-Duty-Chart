@@ -69,11 +69,10 @@ public class Reader {
 	void store() {
 		try {
 			for (int i = 4, j = 0; i < sheet1.getPhysicalNumberOfRows(); i++) {
-				if (sheet1.getRow(i).getCell(0).getCellType()==CellType.STRING){
+				if (sheet1.getRow(i).getCell(0).getCellType() == CellType.STRING) {
 					// System.out.println("i");
 					continue;
-				}
-				else {
+				} else {
 					professors.add(new Data(sheet1.getRow(i).getCell(1).toString()));
 					professors.get(j).setDesignation(sheet1.getRow(i).getCell(2).toString());
 					professors.get(j).setDepartment(sheet1.getRow(i).getCell(3).toString());
@@ -81,13 +80,13 @@ public class Reader {
 					j++;
 				}
 			}
-			for (int i = 3, j = 0; i < sheet2.getPhysicalNumberOfRows() - 1; i++,j++) {
+			for (int i = 3, j = 0; i < sheet2.getPhysicalNumberOfRows() - 1; i++, j++) {
 				contract.add(new Data(sheet2.getRow(i).getCell(1).toString()));
 				contract.get(j).setDesignation("Contract faculty");
 				contract.get(j).setDepartment(sheet2.getRow(i).getCell(2).toString());
 			}
 			// for(int i=0;i<professors.size();i++){
-			// 	System.out.println(professors.get(i).getDepartment());
+			// System.out.println(professors.get(i).getDepartment());
 			// }
 			for (int i = 0; i < branch_keyword.length; i++) {
 				for (int j = 0; j < professors.size(); j++) {
@@ -125,7 +124,7 @@ public class Reader {
 			Font newFont = cell2.getSheet().getWorkbook().createFont();
 			newFont.setBold(true);
 			// newFont.setColor(10);
-			newFont.setFontHeightInPoints((short) 10);
+			newFont.setFontHeightInPoints((short) 7);
 			// newFont.setItalic(true);
 
 			CellStyle cellStyle1 = resultWorkbook.createCellStyle();

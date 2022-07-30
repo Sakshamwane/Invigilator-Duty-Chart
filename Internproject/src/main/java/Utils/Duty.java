@@ -5,9 +5,23 @@ import java.util.Random;
 
 public class Duty {
 
+    int totalDuitesToFill(ArrayList<Header> date) {
+        int count = 0;
+        for (int i = 0; i < date.size(); i++) {
+            count += date.get(i).getNoOfInvigilators();
+        }
+        // System.out.println(count);
+        return count;
+    }
+
     void FillDuty(ArrayList<Data> list, ArrayList<Header> date) {
         Random random = new Random();
-        for (int i = 0; i < list.size()*3; i++) {
+        System.out.println(totalDuitesToFill(date));
+        for (int i = 0; i < date.size(); i++) {
+            System.out.println(date.get(i).getNoOfInvigilators());
+        }
+        int i=0;
+        while (i != totalDuitesToFill(date)) {
             // i=i%list.size();
             int p = random.nextInt(list.size());
             int d = random.nextInt(date.size());
@@ -16,9 +30,11 @@ public class Duty {
                 date.get(d).increaseDuty();
                 list.get(p).increaseNoOfDuites();
                 list.get(p).duty.add(date.get(d).getDate());
+                System.out.println(date.get(d).getDate());
+                i++;
                 // System.out.println(list.get(p).getName() + list.get(p).duty);
             }
         }
-
+        System.out.println(i);
     }
 }

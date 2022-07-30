@@ -47,7 +47,8 @@ public class Header {
     }
 
     int getNoOfInvigilators() {
-        return (int) this.noOfStudents / 20;
+        int x = (int) this.noOfStudents / 20;
+        return x + x / 10 + 2;
     }
 
     void setNoOfInvigilators(int noOfInvigilators) {
