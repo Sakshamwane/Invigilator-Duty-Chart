@@ -119,7 +119,7 @@ public class Reader {
 			Row row1Row = resultSheet.createRow(0);
 			Cell cell2 = row1Row.createCell(0);
 			cell2.setCellValue(
-					"Shri G. S. Institute of Technology & Science Indore -452003\nUG/PG Examination April 2022\n Invigilation Duty Chart\n(Exam Time is 11:00 AM TO 02:00 PM)\nReporting Time for Invigilators is 10:30 AM Sharp in ATC-308\n(II FLOOR ATC BUILDING)");
+					"Shri G. S. Institute of Technology & Science Indore -452003\nUG/PG Examination April 2022\n Invigilation Duty Chart\n\n(Exam Time is 11:00 AM TO 02:00 PM)\nReporting Time for Invigilators is 10:30 AM Sharp in ATC-308\n(II FLOOR ATC BUILDING)\n\n");
 
 			Font newFont = cell2.getSheet().getWorkbook().createFont();
 			newFont.setBold(true);
@@ -136,7 +136,7 @@ public class Reader {
 
 			resultSheet.addMergedRegion(new CellRangeAddress(0, 3, 0, header.size() + 2));
 			for (int counter = 0; counter < finalList.size(); counter++) {
-				Row row = resultSheet.createRow(counter + 5);
+				Row row = resultSheet.createRow(counter + 10);
 				Cell cell1 = row.createCell(0);
 				cell1.setCellValue(counter + 1);
 				Cell cell = row.createCell(1);
@@ -144,6 +144,13 @@ public class Reader {
 			}
 
 			Row row = resultSheet.createRow(4);
+			Cell cell1c = row.createCell(0);
+			cell1c.setCellValue("Duty Chart No.");
+			Cell cell2c = row.createCell(1);
+			cell2c.setCellValue("Exam Dates");
+
+
+
 			for (int counter = 0; counter < header.size(); counter++) {
 				CellStyle cellStyle = resultWorkbook.createCellStyle();
 				cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yy"));
@@ -151,17 +158,18 @@ public class Reader {
 				cell.setCellValue(header.get(counter).getDate());
 				cell.setCellStyle(cellStyle);
 			}
+
 			Duty duty = new Duty();
 			duty.FillDuty(finalList, header);
-			resultSheet.createRow(finalList.size() + 5);
+			resultSheet.createRow(finalList.size() + 10);
 			for (int i = 0; i < finalList.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
 					if (finalList.get(i).duty.contains(header.get(j).getDate())) {
-						resultSheet.getRow(i + 5).createCell(j + 2).setCellValue(1);;
+						resultSheet.getRow(i + 10).createCell(j + 2).setCellValue(1);;
 						header.get(j).increaseTotalD();
-						resultSheet.getRow(i + 5).createCell(header.size() + 2)
+						resultSheet.getRow(i + 10).createCell(header.size() + 2)
 								.setCellValue(finalList.get(i).duty.size());
-						resultSheet.getRow(finalList.size() + 5).createCell(j + 2)
+						resultSheet.getRow(finalList.size() + 10).createCell(j + 2)
 								.setCellValue(header.get(j).getTotalD());
 					}
 				}
