@@ -137,7 +137,7 @@ public class Reader {
 
 			resultSheet.addMergedRegion(new CellRangeAddress(0, 3, 0, header.size() + 2));
 			for (int counter = 0; counter < finalList.size(); counter++) {
-				Row row = resultSheet.createRow(counter + 10);
+				Row row = resultSheet.createRow(counter + 9);
 				Cell cell1 = row.createCell(0);
 				cell1.setCellValue(counter + 1);
 				Cell cell = row.createCell(1);
@@ -149,12 +149,26 @@ public class Reader {
 			cell1c.setCellValue("Duty Chart No.");
 			Cell cell2c = row.createCell(1);
 			cell2c.setCellValue("Exam Dates");
+			Font newFont1 = cell1c.getSheet().getWorkbook().createFont();
 
+			newFont1.setBold(true);
+			// newFont.setColor(10);
+			newFont1.setFontHeightInPoints((short) 10);
+			CellStyle cellStyle2 = resultWorkbook.createCellStyle();
+			cellStyle2.setAlignment(HorizontalAlignment.CENTER);
+			// cellStyle1.setVerticalAlignment(VerticalAlignment.TOP);
+			cellStyle2.setWrapText(true);
+			cellStyle2.setFont(newFont1);
+			cell1c.setCellStyle(cellStyle2);
+			cell2c.setCellStyle(cellStyle2);
 
 			//Dates
 			for (int counter = 0; counter < header.size(); counter++) {
 				CellStyle cellStyle = resultWorkbook.createCellStyle();
 				cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yy"));
+				cellStyle.setAlignment(HorizontalAlignment.CENTER);
+				cellStyle.setWrapText(true);
+				cellStyle.setFont(newFont1);
 				Cell cell = row.createCell(counter + 2);
 				cell.setCellValue(header.get(counter).getDate());
 				cell.setCellStyle(cellStyle);
@@ -163,23 +177,49 @@ public class Reader {
 			//No of students
 			Row studentsRow = resultSheet.createRow(5);
 			studentsRow.createCell(1).setCellValue("No. of students");
+			studentsRow.getCell(1).setCellStyle(cellStyle2);
+
 			for(int i=0; i<header.size(); i++){
-				studentsRow.createCell(i+2).setCellValue(header.get(i).getNoOfStudents());;
+				studentsRow.createCell(i+2).setCellValue(header.get(i).getNoOfStudents());
+				studentsRow.getCell(i+2).setCellStyle(cellStyle2);
 				// .createCell(2).setCellValue(header.get(i).getNoOfStudents());
 			}
+			// No of Invigilators
+			Row invigilatorRow = resultSheet.createRow(6);
+			invigilatorRow.createCell(1).setCellValue("No. of Invigilators");
+			invigilatorRow.getCell(1).setCellStyle(cellStyle2);
+	//totalNoOfInvigilator
+	int totalNoOfInvigilator = 0;
+	for (int i = 0; i < header.size(); i++) {
+		totalNoOfInvigilator = totalNoOfInvigilator + header.get(i).getNoOfInvigilators();
+	}
+
+	for(int i=0; i<header.size(); i++){
+		invigilatorRow.createCell(i+2).setCellValue(header.get(i).getNoOfInvigilators());
+		if(i+1==header.size()){
+			invigilatorRow.createCell(i+3).setCellValue(totalNoOfInvigilator);
+			invigilatorRow.getCell(i+3).setCellStyle(cellStyle2);
+
+		}
+		invigilatorRow.getCell(i+2).setCellStyle(cellStyle2);
+
+	}
+			Row Row7 = resultSheet.createRow(7);
+			Row7.createCell(1).setCellValue("Name(Prof./Dr./Mr./Ms.)");
+			Row7.getCell(1).setCellStyle(cellStyle2);
 
 			//Duty
 			Duty duty = new Duty();
 			duty.FillDuty(finalList, header);
-			resultSheet.createRow(finalList.size() + 10);
+			resultSheet.createRow(finalList.size() + 9);
 			for (int i = 0; i < finalList.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
 					if (finalList.get(i).duty.contains(header.get(j).getDate())) {
-						resultSheet.getRow(i + 10).createCell(j + 2).setCellValue(1);;
+						resultSheet.getRow(i + 9).createCell(j + 2).setCellValue(1);;
 						header.get(j).increaseTotalD();
-						resultSheet.getRow(i + 10).createCell(header.size() + 2)
+						resultSheet.getRow(i + 9).createCell(header.size() + 2)
 								.setCellValue(finalList.get(i).duty.size());
-						resultSheet.getRow(finalList.size() + 10).createCell(j + 2)
+						resultSheet.getRow(finalList.size() + 9).createCell(j + 2)
 								.setCellValue(header.get(j).getTotalD());
 					}
 				}
