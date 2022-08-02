@@ -9,7 +9,7 @@ public class Data {
     private int age;
     private String department;
     private String designation;
-    private Boolean availability;
+    public ArrayList<Date> availability = new ArrayList<Date>();
     public ArrayList<Date> duty = new ArrayList<Date>();
     private int currentDuties = 0;
     private int totalDuty = 0;
@@ -50,12 +50,8 @@ public class Data {
         this.department = department;
     }
 
-    Boolean getAvaibility() {
-        return availability;
-    }
-
-    void setAvaibility(Boolean avail) {
-        this.availability = avail;
+    Boolean checkAvailability(Date d){
+        return(availability.contains(d));
     }
 
     void setTotalDuty() {

@@ -19,11 +19,15 @@ public class Main {
 		String f3 = "Internproject/src/main/java/Datefile.xlsx";
 		String s3 = "Sheet1";
 
+		String f4 = "Internproject/src/main/java/Test_file.xlsx";
+		String s4 = "Form responses 1";
+
 		Reader r1 = new Reader(f1, s1, f2, s2);
 		r1.store();
 		// r1.print();
 		r1.readHeader(f3, s3);
 		// r1.printHeader();
+		r1.availabilityStore(f4, s4);
 
 		try {
 			outputStream = new FileOutputStream("ResultSheet.xlsx");

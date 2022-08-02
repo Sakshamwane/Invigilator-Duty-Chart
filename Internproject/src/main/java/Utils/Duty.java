@@ -15,21 +15,23 @@ public class Duty {
 
     void FillDuty(ArrayList<Data> list, ArrayList<Header> date) {
         Random random = new Random();
-        System.out.println(totalDuitesToFill(date));
-        for (int i = 0; i < date.size(); i++) {
-            System.out.println(date.get(i).getNoOfInvigilators());
-        }
         int i=0;
+        for (int j = 0; j < list.size(); j++) {
+            System.out.println(list.get(j).availability);
+        }
+        for (int j = 0; j < date.size(); j++) {
+            System.out.println(date.get(j).getDate());
+        }
         while (i != totalDuitesToFill(date)) {
             // i=i%list.size();
             int p = random.nextInt(list.size());
             int d = random.nextInt(date.size());
             if (list.get(p).getName() != "" && list.get(p).getNoOfDuties() < list.get(p).getTotalDuty()
-                    && date.get(d).getAssignendDuties() < date.get(d).getNoOfInvigilators() && !list.get(p).duty.contains(date.get(d).getDate())) {
+                    && date.get(d).getAssignendDuties() < date.get(d).getNoOfInvigilators() && !list.get(p).duty.contains(date.get(d).getDate()) && !list.get(p).checkAvailability(date.get(d).getDate())) {
                 date.get(d).increaseDuty();
                 list.get(p).increaseNoOfDuites();
                 list.get(p).duty.add(date.get(d).getDate());
-                System.out.println(date.get(d).getDate()+"\t"+i);
+                // System.out.println(date.get(d).getDate()+"\t"+i);
                 i++;
                 // System.out.println(list.get(p).getName() + list.get(p).duty);
             }
