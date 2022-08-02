@@ -117,6 +117,7 @@ public class Reader {
 		CreationHelper createHelper = resultWorkbook.getCreationHelper();
 		try {
 			Row row1Row = resultSheet.createRow(0);
+			row1Row.setHeight((short)1000);
 			Cell cell2 = row1Row.createCell(0);
 			cell2.setCellValue(
 					"Shri G. S. Institute of Technology & Science Indore -452003\nUG/PG Examination April 2022\n Invigilation Duty Chart\n\n(Exam Time is 11:00 AM TO 02:00 PM)\nReporting Time for Invigilators is 10:30 AM Sharp in ATC-308\n(II FLOOR ATC BUILDING)\n\n");
@@ -124,7 +125,7 @@ public class Reader {
 			Font newFont = cell2.getSheet().getWorkbook().createFont();
 			newFont.setBold(true);
 			// newFont.setColor(10);
-			newFont.setFontHeightInPoints((short) 7);
+			newFont.setFontHeightInPoints((short) 10);
 			// newFont.setItalic(true);
 
 			CellStyle cellStyle1 = resultWorkbook.createCellStyle();
@@ -150,7 +151,7 @@ public class Reader {
 			cell2c.setCellValue("Exam Dates");
 
 
-
+			//Dates
 			for (int counter = 0; counter < header.size(); counter++) {
 				CellStyle cellStyle = resultWorkbook.createCellStyle();
 				cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yy"));
@@ -159,6 +160,15 @@ public class Reader {
 				cell.setCellStyle(cellStyle);
 			}
 
+			//No of students
+			Row studentsRow = resultSheet.createRow(5);
+			studentsRow.createCell(1).setCellValue("No. of students");
+			for(int i=0; i<header.size(); i++){
+				studentsRow.createCell(i+2).setCellValue(header.get(i).getNoOfStudents());;
+				// .createCell(2).setCellValue(header.get(i).getNoOfStudents());
+			}
+
+			//Duty
 			Duty duty = new Duty();
 			duty.FillDuty(finalList, header);
 			resultSheet.createRow(finalList.size() + 10);
