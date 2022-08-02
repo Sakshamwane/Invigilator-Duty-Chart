@@ -51,7 +51,13 @@ public class Data {
     }
 
     Boolean checkAvailability(Date d){
-        return(availability.contains(d));
+        for (int i = 0; i < availability.size(); i++) {
+            if(availability.get(i).equals(d)){
+                System.out.println(availability.get(i)+"\t"+d);
+                return true;
+            }
+        }
+        return false;
     }
 
     void setTotalDuty() {

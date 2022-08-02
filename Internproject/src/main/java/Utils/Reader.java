@@ -125,7 +125,7 @@ public class Reader {
 		}
 
 		try {
-			SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yy");
 			for (int i = 1; i < sheet3.getPhysicalNumberOfRows(); i++) {
 				for (int j = 0; j < finalList.size(); j++) {
 					if (finalList.get(j).getName().compareToIgnoreCase(sheet3.getRow(i).getCell(2).toString()) == 0) {
@@ -208,8 +208,8 @@ public class Reader {
 				cellStyle.setFont(newFont1);
 				Cell cell = row.createCell(counter + 3);
 				if (counter + 3 == header.size()) {
-					row.createCell(counter + 5).setCellValue("Total Duties");
-					row.getCell(counter + 5).setCellStyle(cellStyle2);
+					row.createCell(counter + 6).setCellValue("Total");
+					row.getCell(counter + 6).setCellStyle(cellStyle2);
 
 				}
 				cell.setCellValue(header.get(counter).getDate());
@@ -232,8 +232,8 @@ public class Reader {
 			for (int i = 0; i < header.size(); i++) {
 				studentsRow.createCell(i + 3).setCellValue(header.get(i).getNoOfStudents());
 				if (i + 3 == header.size()) {
-					studentsRow.createCell(i + 5).setCellValue(totalNoOfstudents);
-					studentsRow.getCell(i + 5).setCellStyle(cellStyle2);
+					studentsRow.createCell(i + 6).setCellValue(totalNoOfstudents);
+					studentsRow.getCell(i + 6).setCellStyle(cellStyle2);
 
 				}
 				studentsRow.getCell(i + 3).setCellStyle(cellStyle2);
@@ -251,9 +251,9 @@ public class Reader {
 
 			for (int i = 0; i < header.size(); i++) {
 				invigilatorRow.createCell(i + 3).setCellValue(header.get(i).getNoOfInvigilators());
-				if (i + 2 == header.size()) {
-					invigilatorRow.createCell(i + 4).setCellValue(totalNoOfInvigilator);
-					invigilatorRow.getCell(i + 4).setCellStyle(cellStyle2);
+				if (i + 3 == header.size()) {
+					invigilatorRow.createCell(i + 6).setCellValue(totalNoOfInvigilator);
+					invigilatorRow.getCell(i + 6).setCellStyle(cellStyle2);
 
 				}
 				invigilatorRow.getCell(i + 3).setCellStyle(cellStyle2);
