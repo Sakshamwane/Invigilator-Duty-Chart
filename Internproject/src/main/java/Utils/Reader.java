@@ -11,8 +11,10 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.CreationHelper;
+// import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+// import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -120,12 +122,12 @@ public class Reader {
 			row1Row.setHeight((short)1000);
 			Cell cell2 = row1Row.createCell(0);
 			cell2.setCellValue(
-					"Shri G. S. Institute of Technology & Science Indore -452003\nUG/PG Examination April 2022\n Invigilation Duty Chart\n\n(Exam Time is 11:00 AM TO 02:00 PM)\nReporting Time for Invigilators is 10:30 AM Sharp in ATC-308\n(II FLOOR ATC BUILDING)\n\n");
+					"Shri G. S. Institute of Technology & Science Indore -452003\nUG/PG Examination April 2022\n Invigilation Duty Chart\n\n(Exam Time is 11:00 AM TO 02:00 PM)\nReporting Time for Invigilators is 10:30 AM Sharp in ATC-308  (II FLOOR ATC BUILDING)\n");
 
 			Font newFont = cell2.getSheet().getWorkbook().createFont();
 			newFont.setBold(true);
 			// newFont.setColor(10);
-			newFont.setFontHeightInPoints((short) 10);
+			newFont.setFontHeightInPoints((short) 12);
 			// newFont.setItalic(true);
 
 			CellStyle cellStyle1 = resultWorkbook.createCellStyle();
@@ -157,7 +159,7 @@ public class Reader {
 			CellStyle cellStyle2 = resultWorkbook.createCellStyle();
 			cellStyle2.setAlignment(HorizontalAlignment.CENTER);
 			// cellStyle1.setVerticalAlignment(VerticalAlignment.TOP);
-			cellStyle2.setWrapText(true);
+			cellStyle2.setWrapText(true);	
 			cellStyle2.setFont(newFont1);
 			cell1c.setCellStyle(cellStyle2);
 			cell2c.setCellStyle(cellStyle2);
@@ -170,17 +172,35 @@ public class Reader {
 				cellStyle.setWrapText(true);
 				cellStyle.setFont(newFont1);
 				Cell cell = row.createCell(counter + 2);
+				if(counter+2==header.size()){
+					row.createCell(counter+4).setCellValue("Total Duties");
+					row.getCell(counter+4).setCellStyle(cellStyle2);
+
+				}
 				cell.setCellValue(header.get(counter).getDate());
 				cell.setCellStyle(cellStyle);
+				
 			}
 
 			//No of students
+			// cellStyle2.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+			// cellStyle2.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			Row studentsRow = resultSheet.createRow(5);
 			studentsRow.createCell(1).setCellValue("No. of students");
 			studentsRow.getCell(1).setCellStyle(cellStyle2);
+			//totalNoOfstudents
+			double totalNoOfstudents = 0;
+			for (int i = 0; i < header.size(); i++) {
+			totalNoOfstudents = totalNoOfstudents + header.get(i).getNoOfStudents();
+			}
 
 			for(int i=0; i<header.size(); i++){
 				studentsRow.createCell(i+2).setCellValue(header.get(i).getNoOfStudents());
+				if(i+2==header.size()){
+					studentsRow.createCell(i+4).setCellValue(totalNoOfstudents);
+					studentsRow.getCell(i+4).setCellStyle(cellStyle2);
+		
+				}
 				studentsRow.getCell(i+2).setCellStyle(cellStyle2);
 				// .createCell(2).setCellValue(header.get(i).getNoOfStudents());
 			}
@@ -189,10 +209,10 @@ public class Reader {
 			invigilatorRow.createCell(1).setCellValue("No. of Invigilators");
 			invigilatorRow.getCell(1).setCellStyle(cellStyle2);
 	//totalNoOfInvigilator
-	int totalNoOfInvigilator = 0;
-	for (int i = 0; i < header.size(); i++) {
+		int totalNoOfInvigilator = 0;
+		for (int i = 0; i < header.size(); i++) {
 		totalNoOfInvigilator = totalNoOfInvigilator + header.get(i).getNoOfInvigilators();
-	}
+		}
 
 	for(int i=0; i<header.size(); i++){
 		invigilatorRow.createCell(i+2).setCellValue(header.get(i).getNoOfInvigilators());
@@ -204,7 +224,7 @@ public class Reader {
 		invigilatorRow.getCell(i+2).setCellStyle(cellStyle2);
 
 	}
-			Row Row7 = resultSheet.createRow(7);
+			Row Row7 = resultSheet.createRow(8);
 			Row7.createCell(1).setCellValue("Name(Prof./Dr./Mr./Ms.)");
 			Row7.getCell(1).setCellStyle(cellStyle2);
 
@@ -212,6 +232,10 @@ public class Reader {
 			Duty duty = new Duty();
 			duty.FillDuty(finalList, header);
 			resultSheet.createRow(finalList.size() + 9);
+			Cell celllc = 	resultSheet.createRow(finalList.size() + 9).createCell(1);
+			celllc.setCellValue("Total Duties");
+			resultSheet.getRow(finalList.size() + 9).getCell(1).setCellStyle(cellStyle2);
+
 			for (int i = 0; i < finalList.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
 					if (finalList.get(i).duty.contains(header.get(j).getDate())) {
@@ -221,10 +245,13 @@ public class Reader {
 								.setCellValue(finalList.get(i).duty.size());
 						resultSheet.getRow(finalList.size() + 9).createCell(j + 2)
 								.setCellValue(header.get(j).getTotalD());
+								
 					}
 				}
 				// System.out.println(professors.get(i).getDesignation());
 			}
+			resultSheet.getRow(finalList.size() + 9).createCell(header.size()+2).setCellValue(totalNoOfInvigilator);
+			resultSheet.getRow(finalList.size() + 9).getCell(header.size()+2).setCellStyle(cellStyle2);
 			resultSheet.autoSizeColumn(1);
 			resultWorkbook.write(outputStream);
 			resultWorkbook.close();
