@@ -16,12 +16,12 @@ public class Duty {
     void FillDuty(ArrayList<Data> list, ArrayList<Header> date) {
         Random random = new Random();
         int i=0;
-        for (int j = 0; j < list.size(); j++) {
-            System.out.println(list.get(j).availability);
-        }
-        for (int j = 0; j < date.size(); j++) {
-            System.out.println(date.get(j).getDate());
-        }
+        // for (int j = 0; j < list.size(); j++) {
+        //     System.out.println(list.get(j).availability);
+        // }
+        // for (int j = 0; j < date.size(); j++) {
+        //     System.out.println(date.get(j).getDate());
+        // }
         while (i != totalDuitesToFill(date)) {
             // i=i%list.size();
             int p = random.nextInt(list.size());
