@@ -20,7 +20,6 @@ import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -80,7 +79,6 @@ public class Reader {
 		try {
 			for (int i = 4, j = 0; i < sheet1.getPhysicalNumberOfRows(); i++) {
 				if (sheet1.getRow(i).getCell(0).getCellType() == CellType.STRING) {
-					// System.out.println("i");
 					continue;
 				} else {
 					professors.add(new Data(sheet1.getRow(i).getCell(1).toString()));
@@ -95,22 +93,15 @@ public class Reader {
 				contract.get(j).setDesignation("Contract faculty");
 				contract.get(j).setDepartment(sheet2.getRow(i).getCell(2).toString());
 			}
-			// for(int i=0;i<professors.size();i++){
-			// System.out.println(professors.get(i).getDepartment());
-			// }
 			for (int i = 0; i < branch_keyword.length; i++) {
 				for (int j = 0; j < professors.size(); j++) {
-					// System.out.println(professors.get(j).getDepartment());
 					if (professors.get(j).getDepartment().contains(branch_keyword[i])) {
 						finalList.add(professors.get(j));
-						// System.out.println(finalList.add(professors.get(j)));
 					}
 				}
 				for (int k = 0; k < contract.size(); k++) {
-					// System.out.println(contract.get(k).getDepartment());
 					if (contract.get(k).getDepartment().contains(branch_keyword[i])) {
 						finalList.add(contract.get(k));
-						// System.out.println(finalList.add(contract.get(k)));
 					}
 				}
 			}
@@ -131,15 +122,14 @@ public class Reader {
 		}
 
 		try {
-			SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yy");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
 			for (int i = 1; i < sheet3.getPhysicalNumberOfRows(); i++) {
 				for (int j = 0; j < finalList.size(); j++) {
 					if (finalList.get(j).getName().compareToIgnoreCase(sheet3.getRow(i).getCell(2).toString()) == 0) {
-						// finalList.get(j).setAvaString(sheet3.getRow(i).getCell(4).toString());
 						String s = sheet3.getRow(i).getCell(4).toString();
-						StringTokenizer st = new StringTokenizer(s, ",");
+						StringTokenizer st = new StringTokenizer(s, ", ");
 						while (st.hasMoreTokens()) {
-							Date date = formatter2.parse(st.nextToken());
+							Date date = formatter.parse(st.nextToken());
 							finalList.get(j).availability.add(date);
 						}
 					}
@@ -182,28 +172,26 @@ public class Reader {
 				Cell cell1 = row.createCell(0);
 				cell1.setCellValue(counter + 1);
 				Cell cell = row.createCell(1);
-				Cell cell9=row.createCell(2);
-				Cell cell10=row.createCell(header.size()+4);
+				Cell cell9 = row.createCell(2);
+				Cell cell10 = row.createCell(header.size() + 4);
 				cell.setCellValue(finalList.get(counter).getName());
 				cell9.setCellValue(finalList.get(counter).getDepartment());
 
-					if (finalList.get(counter).getDesignation().compareToIgnoreCase("professor") == 0)
+				if (finalList.get(counter).getDesignation().compareToIgnoreCase("professor") == 0)
 					cell10.setCellValue("P");
 				else if (finalList.get(counter).getDesignation().compareToIgnoreCase("associate professor") == 0)
-				cell10.setCellValue("AP");
+					cell10.setCellValue("AP");
 				else if (finalList.get(counter).getDesignation().compareToIgnoreCase("assistant professor") == 0
 						|| finalList.get(counter).getDesignation().compareToIgnoreCase("asstt.w/s supdt.") == 0)
-						cell10.setCellValue("AR");
-				else if ( finalList.get(counter).getDesignation().compareToIgnoreCase("director") == 0)
-						cell10.setCellValue("DIRECTOR");
-				else if(finalList.get(counter).getDesignation().compareToIgnoreCase("head") == 0){
-					 cell10.setCellValue("HOD");
-				}
-				else if(finalList.get(counter).getDesignation().compareToIgnoreCase("dean") == 0){
+					cell10.setCellValue("AR");
+				else if (finalList.get(counter).getDesignation().compareToIgnoreCase("director") == 0)
+					cell10.setCellValue("DIRECTOR");
+				else if (finalList.get(counter).getDesignation().compareToIgnoreCase("head") == 0) {
+					cell10.setCellValue("HOD");
+				} else if (finalList.get(counter).getDesignation().compareToIgnoreCase("dean") == 0) {
 					cell10.setCellValue("DEAN");
 				}
-				
-				
+
 			}
 
 			Row row = resultSheet.createRow(4);
@@ -264,24 +252,25 @@ public class Reader {
 				studentsRow.getCell(i + 3).setCellStyle(cellStyle2);
 				// .createCell(2).setCellValue(header.get(i).getNoOfStudents());
 			}
-			
-			XSSFCellStyle style3 = resultWorkbook.createCellStyle();
-						style3.setWrapText(true);
-						style3.setFont(newFont1);
-						style3.setAlignment(HorizontalAlignment.CENTER);
-						style3.setFillForegroundColor(new XSSFColor(new java.awt.Color(245, 248, 163), new DefaultIndexedColorMap()));
-						style3.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-						XSSFCellStyle style4 = resultWorkbook.createCellStyle();
-						style4.setWrapText(true);
-						style4.setFont(newFont1);
-						style4.setFillForegroundColor(new XSSFColor(new java.awt.Color(255, 59, 40), new DefaultIndexedColorMap()));
-						style4.setFillPattern(FillPatternType.SOLID_FOREGROUND);    
+			XSSFCellStyle style3 = resultWorkbook.createCellStyle();
+			style3.setWrapText(true);
+			style3.setFont(newFont1);
+			style3.setAlignment(HorizontalAlignment.CENTER);
+			style3.setFillForegroundColor(
+					new XSSFColor(new java.awt.Color(245, 248, 163), new DefaultIndexedColorMap()));
+			style3.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+			XSSFCellStyle style4 = resultWorkbook.createCellStyle();
+			style4.setWrapText(true);
+			style4.setFont(newFont1);
+			style4.setFillForegroundColor(new XSSFColor(new java.awt.Color(255, 59, 40), new DefaultIndexedColorMap()));
+			style4.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			// No of Invigilators
 			Row invigilatorRow = resultSheet.createRow(6);
 			invigilatorRow.createCell(1).setCellValue("No. of Invigilators");
 			invigilatorRow.getCell(1).setCellStyle(cellStyle2);
-			
+
 			// totalNoOfInvigilator
 			int totalNoOfInvigilator = 0;
 			for (int i = 0; i < header.size(); i++) {
@@ -305,12 +294,11 @@ public class Reader {
 			Row7.createCell(2).setCellValue("Department");
 			Row7.getCell(2).setCellStyle(cellStyle2);
 			// for(int i=0;i<finalList.size();i++){
-			// 	for (int j = 0; j < header.size(); j++) {
-			// 		if()
-			// 	}
+			// for (int j = 0; j < header.size(); j++) {
+			// if()
 			// }
-			
-			
+			// }
+
 			// Duty
 			Duty duty = new Duty();
 			duty.FillDuty(finalList, header);
@@ -318,7 +306,7 @@ public class Reader {
 			Cell celllc = resultSheet.createRow(finalList.size() + 9).createCell(1);
 			celllc.setCellValue("Total Duties");
 			resultSheet.getRow(finalList.size() + 9).getCell(1).setCellStyle(cellStyle2);
-			int c=0;
+			int c = 0;
 			for (int i = 0; i < finalList.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
 					if (finalList.get(i).duty.contains(header.get(j).getDate())) {
@@ -329,31 +317,36 @@ public class Reader {
 								.setCellValue(finalList.get(i).duty.size());
 						resultSheet.getRow(finalList.size() + 9).createCell(j + 3)
 								.setCellValue(header.get(j).getTotalD());
-								c++;
+						resultSheet.getRow(finalList.size() + 9).getCell(j + 3).setCellStyle(cellStyle2);
+						c++;
 
 					}
 				}
 			}
-			
-			for(int i=0;i<finalList.size();i++){
+
+			for (int i = 0; i < finalList.size(); i++) {
 				for (int j = 0; j < header.size(); j++) {
-				if(finalList.get(i).getDesignation().compareToIgnoreCase("director") == 0||finalList.get(i).getDesignation().compareToIgnoreCase("Dean") == 0 ||finalList.get(i).getDesignation().compareToIgnoreCase("Head") == 0 ){
-				resultSheet.getRow(i+9).createCell(j + 3).setCellStyle(style4);
-				// resultSheet.getRow(i+9).setRowStyle(style4);
-							}
-						}
+					if (finalList.get(i).getDesignation().compareToIgnoreCase("director") == 0
+							|| finalList.get(i).getDesignation().compareToIgnoreCase("Dean") == 0
+							|| finalList.get(i).getDesignation().compareToIgnoreCase("Head") == 0) {
+						resultSheet.getRow(i + 9).createCell(j + 3).setCellStyle(style4);
+						// resultSheet.getRow(i+9).setRowStyle(style4);
+					}
 				}
+			}
 			System.out.println(c);
 			resultSheet.getRow(finalList.size() + 9).createCell(header.size() + 3).setCellValue(c);
 			resultSheet.getRow(finalList.size() + 9).getCell(header.size() + 3).setCellStyle(cellStyle2);
 			resultSheet.autoSizeColumn(1);
 			resultSheet.autoSizeColumn(2);
+			resultSheet.autoSizeColumn(header.size() + 4);
+			resultSheet.createFreezePane(2,7);
 			resultWorkbook.write(outputStream);
 			resultWorkbook.close();
 
-			//Designation
-			for (int i = 0; i<finalList.size(); i++){
-					resultSheet.getRow(i+9).createCell(header.size()+5).setCellValue(finalList.get(i).getDesignation());
+			// Designation
+			for (int i = 0; i < finalList.size(); i++) {
+				resultSheet.getRow(i + 9).createCell(header.size() + 5).setCellValue(finalList.get(i).getDesignation());
 			}
 
 		} catch (Exception e) {
