@@ -183,8 +183,27 @@ public class Reader {
 				cell1.setCellValue(counter + 1);
 				Cell cell = row.createCell(1);
 				Cell cell9=row.createCell(2);
+				Cell cell10=row.createCell(header.size()+4);
 				cell.setCellValue(finalList.get(counter).getName());
 				cell9.setCellValue(finalList.get(counter).getDepartment());
+
+					if (finalList.get(counter).getDesignation().compareToIgnoreCase("professor") == 0)
+					cell10.setCellValue("P");
+				else if (finalList.get(counter).getDesignation().compareToIgnoreCase("associate professor") == 0)
+				cell10.setCellValue("AP");
+				else if (finalList.get(counter).getDesignation().compareToIgnoreCase("assistant professor") == 0
+						|| finalList.get(counter).getDesignation().compareToIgnoreCase("asstt.w/s supdt.") == 0)
+						cell10.setCellValue("AR");
+				else if ( finalList.get(counter).getDesignation().compareToIgnoreCase("director") == 0)
+						cell10.setCellValue("DIRECTOR");
+				else if(finalList.get(counter).getDesignation().compareToIgnoreCase("head") == 0){
+					 cell10.setCellValue("HOD");
+				}
+				else if(finalList.get(counter).getDesignation().compareToIgnoreCase("dean") == 0){
+					cell10.setCellValue("DEAN");
+				}
+				
+				
 			}
 
 			Row row = resultSheet.createRow(4);
@@ -258,6 +277,7 @@ public class Reader {
 			Row invigilatorRow = resultSheet.createRow(6);
 			invigilatorRow.createCell(1).setCellValue("No. of Invigilators");
 			invigilatorRow.getCell(1).setCellStyle(cellStyle2);
+			
 			// totalNoOfInvigilator
 			int totalNoOfInvigilator = 0;
 			for (int i = 0; i < header.size(); i++) {
@@ -317,6 +337,12 @@ public class Reader {
 			resultSheet.autoSizeColumn(2);
 			resultWorkbook.write(outputStream);
 			resultWorkbook.close();
+
+			//Designation
+			for (int i = 0; i<finalList.size(); i++){
+					resultSheet.getRow(i+9).createCell(header.size()+5).setCellValue(finalList.get(i).getDesignation());
+			}
+
 		} catch (Exception e) {
 			System.out.println(e.getCause());
 			System.out.println(e.getMessage());
