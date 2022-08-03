@@ -176,7 +176,7 @@ public class Reader {
 			cellStyle1.setFont(newFont);
 			cell2.setCellStyle(cellStyle1);
 
-			resultSheet.addMergedRegion(new CellRangeAddress(0, 3, 0, header.size() + 2));
+			resultSheet.addMergedRegion(new CellRangeAddress(0, 3, 0, header.size() + 3));
 			for (int counter = 0; counter < finalList.size(); counter++) {
 				Row row = resultSheet.createRow(counter + 9);
 				Cell cell1 = row.createCell(0);
@@ -272,7 +272,11 @@ public class Reader {
 						style3.setFillForegroundColor(new XSSFColor(new java.awt.Color(245, 248, 163), new DefaultIndexedColorMap()));
 						style3.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-                        
+						XSSFCellStyle style4 = resultWorkbook.createCellStyle();
+						style4.setWrapText(true);
+						style4.setFont(newFont1);
+						style4.setFillForegroundColor(new XSSFColor(new java.awt.Color(255, 59, 40), new DefaultIndexedColorMap()));
+						style4.setFillPattern(FillPatternType.SOLID_FOREGROUND);    
 			// No of Invigilators
 			Row invigilatorRow = resultSheet.createRow(6);
 			invigilatorRow.createCell(1).setCellValue("No. of Invigilators");
@@ -330,6 +334,15 @@ public class Reader {
 					}
 				}
 			}
+			
+			for(int i=0;i<finalList.size();i++){
+				for (int j = 0; j < header.size(); j++) {
+				if(finalList.get(i).getDesignation().compareToIgnoreCase("director") == 0||finalList.get(i).getDesignation().compareToIgnoreCase("Dean") == 0 ||finalList.get(i).getDesignation().compareToIgnoreCase("Head") == 0 ){
+				resultSheet.getRow(i+9).createCell(j + 3).setCellStyle(style4);
+				// resultSheet.getRow(i+9).setRowStyle(style4);
+							}
+						}
+				}
 			System.out.println(c);
 			resultSheet.getRow(finalList.size() + 9).createCell(header.size() + 3).setCellValue(c);
 			resultSheet.getRow(finalList.size() + 9).getCell(header.size() + 3).setCellStyle(cellStyle2);
