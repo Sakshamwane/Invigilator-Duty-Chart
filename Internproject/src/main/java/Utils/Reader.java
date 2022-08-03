@@ -7,14 +7,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
+
+import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -239,6 +245,15 @@ public class Reader {
 				studentsRow.getCell(i + 3).setCellStyle(cellStyle2);
 				// .createCell(2).setCellValue(header.get(i).getNoOfStudents());
 			}
+			
+			XSSFCellStyle style3 = resultWorkbook.createCellStyle();
+						style3.setWrapText(true);
+						style3.setFont(newFont1);
+						style3.setAlignment(HorizontalAlignment.CENTER);
+						style3.setFillForegroundColor(new XSSFColor(new java.awt.Color(245, 248, 163), new DefaultIndexedColorMap()));
+						style3.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                        
 			// No of Invigilators
 			Row invigilatorRow = resultSheet.createRow(6);
 			invigilatorRow.createCell(1).setCellValue("No. of Invigilators");
@@ -256,7 +271,7 @@ public class Reader {
 					invigilatorRow.getCell(i + 6).setCellStyle(cellStyle2);
 
 				}
-				invigilatorRow.getCell(i + 3).setCellStyle(cellStyle2);
+				invigilatorRow.getCell(i + 3).setCellStyle(style3);
 
 			}
 			Row Row7 = resultSheet.createRow(8);
@@ -265,6 +280,13 @@ public class Reader {
 
 			Row7.createCell(2).setCellValue("Department");
 			Row7.getCell(2).setCellStyle(cellStyle2);
+			// for(int i=0;i<finalList.size();i++){
+			// 	for (int j = 0; j < header.size(); j++) {
+			// 		if()
+			// 	}
+			// }
+			
+			
 			// Duty
 			Duty duty = new Duty();
 			duty.FillDuty(finalList, header);
