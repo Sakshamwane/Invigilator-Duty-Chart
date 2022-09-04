@@ -1,5 +1,6 @@
 package Utils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -45,7 +46,7 @@ public class Reader {
 			"Pharmacy", "Management", "MBA", "Physics", "Chemistry", "Mathematics", "Humanities" };
 
 	// Parameterized constructor
-	public Reader(String FilePath1, String SheetName1, String FilePath2, String SheetName2) {
+	public Reader(File FilePath1, String SheetName1, File FilePath2, String SheetName2) {
 		try {
 
 			workBook1 = new XSSFWorkbook(FilePath1);
@@ -60,7 +61,7 @@ public class Reader {
 		}
 	}
 
-	void readHeader(String filePathForHeader, String sheetName) {
+	void readHeader(File filePathForHeader, String sheetName) {
 		try {
 			headerWorkBook = new XSSFWorkbook(filePathForHeader);
 			headerWorkSheet = headerWorkBook.getSheet(sheetName);
@@ -111,7 +112,7 @@ public class Reader {
 		}
 	}
 
-	void availabilityStore(String filePathAvailability, String sheetName1) {
+	void availabilityStore(File filePathAvailability, String sheetName1) {
 		try {
 			workBook3 = new XSSFWorkbook(filePathAvailability);
 
@@ -311,7 +312,6 @@ public class Reader {
 				for (int j = 0; j < header.size(); j++) {
 					if (finalList.get(i).duty.contains(header.get(j).getDate())) {
 						resultSheet.getRow(i + 9).createCell(j + 3).setCellValue("D");
-						;
 						header.get(j).increaseTotalD();
 						resultSheet.getRow(i + 9).createCell(header.size() + 3)
 								.setCellValue(finalList.get(i).duty.size());
@@ -319,7 +319,6 @@ public class Reader {
 								.setCellValue(header.get(j).getTotalD());
 						resultSheet.getRow(finalList.size() + 9).getCell(j + 3).setCellStyle(cellStyle2);
 						c++;
-
 					}
 				}
 			}
@@ -340,7 +339,7 @@ public class Reader {
 			resultSheet.autoSizeColumn(1);
 			resultSheet.autoSizeColumn(2);
 			resultSheet.autoSizeColumn(header.size() + 4);
-			resultSheet.createFreezePane(2,7);
+			resultSheet.createFreezePane(2, 7);
 			resultWorkbook.write(outputStream);
 			resultWorkbook.close();
 
@@ -354,5 +353,4 @@ public class Reader {
 			System.out.println(e.getMessage());
 		}
 	}
-
 }

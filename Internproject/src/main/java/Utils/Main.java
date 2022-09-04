@@ -1,7 +1,6 @@
 package Utils;
 
 import java.util.Date;
-import java.io.FileOutputStream;
 
 public class Main {
 
@@ -9,33 +8,41 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		FileOutputStream outputStream;
-		String f1 = "Internproject/src/main/java/file3.xlsx";
-		String f2 = "Internproject/src/main/java/Contract_Faculties.xlsx";
+		// FileOutputStream outputStream;
+		// String f1 = "Internproject/src/main/java/file3.xlsx";
+		// String f2 = "Internproject/src/main/java/Contract_Faculties.xlsx";
 
-		String s1 = "Regular";
-		String s2 = "Sheet1";
+		// String s1 = "Regular";
+		// String s2 = "Sheet1";
 
-		String f3 = "Internproject/src/main/java/Datefile.xlsx";
-		String s3 = "Sheet1";
+		// String f3 = "Internproject/src/main/java/Datefile.xlsx";
+		// String s3 = "Sheet1";
 
-		String f4 = "Internproject/src/main/java/Test_file.xlsx";
-		String s4 = "Form responses 1";
+		// String f4 = "Internproject/src/main/java/Test_file.xlsx";
+		// String s4 = "Form responses 1";
 
-		Reader r1 = new Reader(f1, s1, f2, s2);
-		r1.store();
-		// r1.print();
-		r1.readHeader(f3, s3);
-		// r1.printHeader();
-		r1.availabilityStore(f4, s4);
+		//GUI
+		gui obj = new gui();
+		obj.setSize(1000,800);    
+        obj.setLayout(null);    
+        obj.setVisible(true); 
 
-		try {
-			outputStream = new FileOutputStream("ResultSheet.xlsx");
-			r1.generateFile(outputStream);
 
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getCause());
-		}
+		// Reader r1 = new Reader(f1, s1, f2, s2);
+		// r1.store();
+		// // r1.print();
+		// r1.readHeader(f3, s3);
+		// // r1.printHeader();
+		// r1.availabilityStore(f4, s4);
+
+
+		// try {
+		// 	outputStream = new FileOutputStream("ResultSheet.xlsx");
+		// 	r1.generateFile(outputStream);
+
+		// } catch (Exception e) {
+		// 	System.out.println(e.getMessage());
+		// 	System.out.println(e.getCause());
+		// }
 	}
 }
