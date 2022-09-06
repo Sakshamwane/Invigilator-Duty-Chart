@@ -37,7 +37,7 @@ public class gui extends JFrame implements ActionListener {
 
         try {
             final ImageIcon icon = new ImageIcon(
-                    Objects.requireNonNull(this.getClass().getResource("/Internproject/src/main/java")));
+                    Objects.requireNonNull(this.getClass().getResource("/Internproject/src/main/java/logo.png")));
             JLabel logo = new JLabel();
             logo.setIcon(icon);
             logo.setBounds(50, 300, 200, 40);
@@ -49,6 +49,7 @@ public class gui extends JFrame implements ActionListener {
         // Generate Button
         button1 = new JButton("Generate");
         button1.setBounds(450, 600, 100, 40);
+        button1.addActionListener(this);
         add(button1);
 
         // File 1
@@ -219,12 +220,12 @@ public class gui extends JFrame implements ActionListener {
         } else if (evt.getSource() == button1) {
 
             System.out.println("Generate clicked");
-            Reader r1 = new Reader(f1, s1, f2, s2);
+            Reader r1 = new Reader(this.f1, this.s1, this.f2, this.s2);
             r1.store();
             // r1.print();
-            r1.readHeader(f3, s3);
+            r1.readHeader(this.f3, this.s3);
             // r1.printHeader();
-            r1.availabilityStore(f4, s4);
+            r1.availabilityStore(this.f4, this.s4);
 
             try {
                 outputStream = new FileOutputStream("ResultSheet.xlsx");
