@@ -117,12 +117,6 @@ public class Reader {
 			workBook3 = new XSSFWorkbook(filePathAvailability);
 
 			sheet3 = workBook3.getSheet(sheetName1);
-		} catch (Exception e) {
-			e.getCause();
-			System.out.println(e.getMessage());
-		}
-
-		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
 			for (int i = 1; i < sheet3.getPhysicalNumberOfRows(); i++) {
 				for (int j = 0; j < finalList.size(); j++) {

@@ -2,7 +2,6 @@ package Utils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import java.awt.Font;
 import java.awt.event.*;
 import java.io.File;
@@ -32,8 +31,53 @@ public class gui extends JFrame implements ActionListener {
         JLabel header = new JLabel("Shri G.S Institue of Technology & Science, Indore", SwingConstants.CENTER);
         // header.setText("Shri G.S Institue of Technology & Science, Indore");
         header.setFont(new Font("Calbiri", Font.BOLD, 30));
-        header.setBounds(0, 50, 1000, 80);
+        header.setBounds(0, 20, 1000, 80);
         add(header);
+
+        JLabel s_header = new JLabel("Exam Duty Invigilation Chart Generator", SwingConstants.CENTER);
+        s_header.setFont(new Font("Calbiri", Font.ITALIC, 25));
+        s_header.setBounds(0, 70, 1000, 80);
+        // s_header.put(s_header.UNDERLINE, s_header.UNDERLINE_ON);
+        add(s_header);
+
+        JLabel line_break = new JLabel("------------------------------------------------------------------------------------------------------------", SwingConstants.CENTER);
+        line_break.setFont(new Font("Calbiri", Font.CENTER_BASELINE, 10));
+        line_break.setBounds(0, 90, 1000, 80);
+        // s_header.put(s_header.UNDERLINE, s_header.UNDERLINE_ON);
+        add(line_break);
+
+
+
+        JLabel instructions = new JLabel("*INSTRUCTIONS:");
+        instructions.setFont(new Font("Calbiri", Font.PLAIN, 23));
+        instructions.setBounds(100, 130, 1000, 80);
+        add(instructions);
+
+        JLabel instructions1 = new JLabel("1.Select Input files in proper format .");
+        instructions1.setFont(new Font("Calbiri", Font.PLAIN, 16));
+        instructions1.setBounds(100, 170, 1000, 80);
+        add(instructions1);
+
+        JLabel instructions2 = new JLabel("2.View Sample files for reference .");
+        instructions2.setFont(new Font("Calbiri", Font.PLAIN, 16));
+        instructions2.setBounds(100, 200, 1000, 80);
+        add(instructions2);
+
+        JLabel instructions3 = new JLabel("3.For More help refer User Manual.");
+        instructions3.setFont(new Font("Calbiri", Font.PLAIN, 16));
+        instructions3.setBounds(100, 230, 1000, 80);
+        add(instructions3);
+
+        JLabel h3 = new JLabel("____________________________________________________________________________________________________________________________________________________________________________________________", SwingConstants.CENTER);
+        h3.setFont(new Font("Calbiri", Font.BOLD, 10));
+        h3.setBounds(0, 250, 1000, 80);
+        add(h3);
+
+        JLabel h4 = new JLabel("SELECT INPUT FILES");
+        h4.setFont(new Font("Calbiri", Font.PLAIN, 26));
+        h4.setBounds(380, 300, 1000, 80);
+        add(h4);
+
 
         try {
             final ImageIcon icon = new ImageIcon(
@@ -47,8 +91,9 @@ public class gui extends JFrame implements ActionListener {
         }
 
         // Generate Button
-        button1 = new JButton("Generate");
-        button1.setBounds(450, 600, 100, 40);
+        button1 = new JButton("Generate Chart");
+        button1.setBounds(450, 680, 150, 40);
+        button1.setFont(new Font("Calbiri", Font.PLAIN, 15));
         button1.addActionListener(this);
         add(button1);
 
@@ -56,16 +101,16 @@ public class gui extends JFrame implements ActionListener {
         JLabel label2 = new JLabel();
         label2.setText("Input File 1");
         label2.setFont(new Font("Calbiri", Font.BOLD, 20));
-        label2.setBounds(180, 300, 200, 40);
+        label2.setBounds(180, 400, 200, 40);
         add(label2);
 
         button2 = new JButton("Choose File");
-        button2.setBounds(700, 300, 150, 40);
+        button2.setBounds(700, 400, 150, 40);
         button2.addActionListener(this);
         add(button2);
 
         JButton button6 = new JButton("View sample file");
-        button6.setBounds(500, 300, 150, 40);
+        button6.setBounds(500, 400, 150, 40);
         button6.addActionListener(this);
         add(button6);
 
@@ -73,16 +118,16 @@ public class gui extends JFrame implements ActionListener {
         JLabel label3 = new JLabel();
         label3.setText("Input File 2");
         label3.setFont(new Font("Calbiri", Font.BOLD, 20));
-        label3.setBounds(180, 350, 200, 40);
+        label3.setBounds(180, 450, 200, 40);
         add(label3);
 
         button3 = new JButton("Choose file");
-        button3.setBounds(700, 350, 150, 40);
+        button3.setBounds(700, 450, 150, 40);
         button3.addActionListener(this);
         add(button3);
 
         JButton button7 = new JButton("View sample file");
-        button7.setBounds(500, 350, 150, 40);
+        button7.setBounds(500, 450, 150, 40);
         button7.addActionListener(this);
         add(button7);
 
@@ -90,16 +135,16 @@ public class gui extends JFrame implements ActionListener {
         JLabel label4 = new JLabel();
         label4.setText("Input File 3");
         label4.setFont(new Font("Calbiri", Font.BOLD, 20));
-        label4.setBounds(180, 400, 200, 40);
+        label4.setBounds(180, 500, 200, 40);
         add(label4);
 
         button4 = new JButton("Choose file");
-        button4.setBounds(700, 400, 150, 40);
+        button4.setBounds(700, 500, 150, 40);
         button4.addActionListener(this);
         add(button4);
 
         JButton button8 = new JButton("View sample file");
-        button8.setBounds(500, 400, 150, 40);
+        button8.setBounds(500, 500, 150, 40);
         button8.addActionListener(this);
         add(button8);
 
@@ -107,21 +152,21 @@ public class gui extends JFrame implements ActionListener {
         JLabel label5 = new JLabel();
         label5.setText("Input File 4");
         label5.setFont(new Font("Calbiri", Font.BOLD, 20));
-        label5.setBounds(180, 450, 200, 40);
+        label5.setBounds(180, 550, 200, 40);
         add(label5);
 
         button5 = new JButton("Choose file");
-        button5.setBounds(700, 450, 150, 40);
+        button5.setBounds(700, 550, 150, 40);
         button5.addActionListener(this);
         add(button5);
 
         JButton button9 = new JButton("View sample file");
-        button9.setBounds(500, 450, 150, 40);
+        button9.setBounds(500, 550, 150, 40);
         button9.addActionListener(this);
         add(button9);
 
         // JLabel label6= new JLabel();
-        // label6.setText("Sample File");
+        // label6.setIcon("logo.png");
         // label6.setBounds(700, 500, 100, 40);
         // add(label6);
 
