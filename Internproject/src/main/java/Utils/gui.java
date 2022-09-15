@@ -1,16 +1,24 @@
 package Utils;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.Desktop;
 import java.awt.Font;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Objects;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 public class gui extends JFrame implements ActionListener {
 
-    protected JButton button1, button2, button3, button4, button5;
+    protected JButton button1, button2, button3, button4, button5, button6, button7, button8, button9;
 
     FileOutputStream outputStream;
 
@@ -99,9 +107,9 @@ public class gui extends JFrame implements ActionListener {
 
         // File 1
         JLabel label2 = new JLabel();
-        label2.setText("Input File 1");
+        label2.setText("File of regular faculties:");
         label2.setFont(new Font("Calbiri", Font.BOLD, 20));
-        label2.setBounds(180, 400, 200, 40);
+        label2.setBounds(160, 400, 300, 40);
         add(label2);
 
         button2 = new JButton("Choose File");
@@ -109,16 +117,16 @@ public class gui extends JFrame implements ActionListener {
         button2.addActionListener(this);
         add(button2);
 
-        JButton button6 = new JButton("View sample file");
+        button6 = new JButton("View sample file");
         button6.setBounds(500, 400, 150, 40);
         button6.addActionListener(this);
         add(button6);
 
         // File 2
         JLabel label3 = new JLabel();
-        label3.setText("Input File 2");
+        label3.setText("File of contract faculties:");
         label3.setFont(new Font("Calbiri", Font.BOLD, 20));
-        label3.setBounds(180, 450, 200, 40);
+        label3.setBounds(160, 450, 300, 40);
         add(label3);
 
         button3 = new JButton("Choose file");
@@ -126,16 +134,16 @@ public class gui extends JFrame implements ActionListener {
         button3.addActionListener(this);
         add(button3);
 
-        JButton button7 = new JButton("View sample file");
+        button7 = new JButton("View sample file");
         button7.setBounds(500, 450, 150, 40);
         button7.addActionListener(this);
         add(button7);
 
         // File 3
         JLabel label4 = new JLabel();
-        label4.setText("Input File 3");
+        label4.setText("File of exam dates:");
         label4.setFont(new Font("Calbiri", Font.BOLD, 20));
-        label4.setBounds(180, 500, 200, 40);
+        label4.setBounds(160, 500, 300, 40);
         add(label4);
 
         button4 = new JButton("Choose file");
@@ -143,16 +151,16 @@ public class gui extends JFrame implements ActionListener {
         button4.addActionListener(this);
         add(button4);
 
-        JButton button8 = new JButton("View sample file");
+        button8 = new JButton("View sample file");
         button8.setBounds(500, 500, 150, 40);
         button8.addActionListener(this);
         add(button8);
 
         // File 4
         JLabel label5 = new JLabel();
-        label5.setText("Input File 4");
+        label5.setText("File of unavailable faculties:");
         label5.setFont(new Font("Calbiri", Font.BOLD, 20));
-        label5.setBounds(180, 550, 200, 40);
+        label5.setBounds(160, 550, 300, 40);
         add(label5);
 
         button5 = new JButton("Choose file");
@@ -160,7 +168,7 @@ public class gui extends JFrame implements ActionListener {
         button5.addActionListener(this);
         add(button5);
 
-        JButton button9 = new JButton("View sample file");
+        button9 = new JButton("View sample file");
         button9.setBounds(500, 550, 150, 40);
         button9.addActionListener(this);
         add(button9);
@@ -281,6 +289,42 @@ public class gui extends JFrame implements ActionListener {
                 System.out.println(e.getCause());
             }
 
+        }
+
+        else if (evt.getSource() == button6) {
+            try {
+                Desktop.getDesktop().open(new File("Internproject/src/main/java/file3.xlsx"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                System.out.println(e.getCause());
+            }
+        }
+
+        else if (evt.getSource() == button7) {
+            try {
+                Desktop.getDesktop().open(new File("Internproject/src/main/java/Contract_Faculties.xlsx"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                System.out.println(e.getCause());
+            }
+        }
+
+        else if (evt.getSource() == button8) {
+            try {
+                Desktop.getDesktop().open(new File("Internproject/src/main/java/Datefile.xlsx"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                System.out.println(e.getCause());
+            }
+        }
+
+        else if (evt.getSource() == button9) {
+            try {
+                Desktop.getDesktop().open(new File("Internproject/src/main/java/Test_file.xlsx"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                System.out.println(e.getCause());
+            }
         }
     }
 }
