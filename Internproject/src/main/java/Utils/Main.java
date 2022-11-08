@@ -46,6 +46,5 @@ public class Main {
 		// }
 
 		//Date_Validation
-		new Date_Validation();
 	}
 }
