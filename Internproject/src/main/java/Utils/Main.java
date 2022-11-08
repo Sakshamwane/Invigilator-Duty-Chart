@@ -23,7 +23,7 @@ public class Main {
 
 		//GUI
 		gui obj = new gui();
-		obj.setSize(1000,800);    
+		obj.setSize(1920,1080);    
         obj.setLayout(null);    
         obj.setVisible(true); 
 
@@ -44,5 +44,8 @@ public class Main {
 		// 	System.out.println(e.getMessage());
 		// 	System.out.println(e.getCause());
 		// }
+
+		//Date_Validation
+		new Date_Validation();
 	}
 }
